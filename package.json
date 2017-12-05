@@ -1,8 +1,8 @@
 {
-  "name": "asher-lint",
+  "name": "ttsy-lint",
   "version": "1.0.0",
   "description": "",
-  "bin": "bin/asher-lint",
+  "bin": "bin/ttsy-lint",
   "main": "index.js",
   "scripts": {
     "test": "gulp lint"
