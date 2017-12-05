@@ -17,7 +17,7 @@ const fs = require('fs');
 const initCWD = process.env.INIT_CWD;
 const cwd = process.cwd();
 
-const lintConfigFiles = ['.eslintrc', '.eslintignore', '.sass-lint.yml', '.htmllintrc'];
+const lintConfigFiles = ['.eslintrc.js', '.eslintignore'];
 
 // 拷贝检测配置文件
 if (cwd !== initCWD) {
@@ -26,7 +26,10 @@ if (cwd !== initCWD) {
     });
 }
 
+console.log(initCWD)
+console.log(cwd)
 // 项目代码检测配置
+
 const lintConfig = require(initCWD + '/lint.config.json');
 
 let argv = require('yargs')
@@ -36,8 +39,6 @@ let argv = require('yargs')
 let lintFiles = {
     js: [],
     vue: [],
-    scss: [],
-    html: [],
 };
 
 let projects = argv.p + '';
@@ -65,27 +66,9 @@ gulp.task('eslint', function () {
         .pipe(eslint.failAfterError());
 });
 
-// sass 代码规范检测，不想被检测的代码命名为 *.min.scss 即可
-gulp.task('sasslint', function () {
-    // return gulp.src(lintFiles.scss.concat(lintFiles.vue))
-    //     .pipe(sassLint())
-    //     .pipe(sassLint.format())
-    //     .pipe(sassLint.failOnError());
-});
-
-// html 代码规范检测，不想被检测的代码放入忽略目录即可
-gulp.task('htmllint', function () {
-    // return gulp.src(lintFiles.html)
-    //     .pipe(htmlLint())
-    //     .on('error', function (err) {
-    //         console.log(err + '')
-    //     })
-    //     .pipe(htmlLint.format())
-    //     .pipe(htmlLint.failOnError());
-});
 
 // lint task
-gulp.task('lint', ['eslint', 'htmllint', 'sasslint'], function () {
+gulp.task('lint', ['eslint'], function () {
     if (cwd !== initCWD) {
         // 移除检测配置文件
         lintConfigFiles.map((v) => {
