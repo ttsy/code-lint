@@ -5,12 +5,13 @@
   "bin": "bin/ttsy-lint",
   "main": "index.js",
   "scripts": {
-    "test": "gulp lint"
+    "test": "gulp lint --gulpfile lint.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.0"
+    "gulp-eslint": "^4.0.0",
+    "yargs": "^10.0.3"
   }
 }
