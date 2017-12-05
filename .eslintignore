@@ -1,0 +1,9 @@
+**/dist/
+**/vendor/
+**/node_modules/
+**/jsdocs/
+**/*.min.js
+**/jquery.*.js
+**/jquery-*.js
+
+# 一些旧项目不好修复的暂时性忽略文件

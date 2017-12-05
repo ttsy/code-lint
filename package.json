@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "bin": "bin/ttsy-lint",
-  "directories": {
-    "bin": "./bin"
-  },
   "main": "index.js",
   "scripts": {
     "test": "gulp lint --gulpfile lint.js"
