@@ -1,5 +1,5 @@
 {
-    "asher-lint": [
+    "ttsy-lint": [
         "**/*.js",
         "!node_modules/**/*.js"
     ]
