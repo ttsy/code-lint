@@ -9,8 +9,6 @@
 const gulp = require('gulp');
 const path = require('path');
 const eslint = require('gulp-eslint');
-// const sassLint = require('gulp-sass-lint');
-// const htmlLint = require('gulp-html-lint');
 const fs = require('fs');
 
 // 运行检测命令的目录
@@ -28,6 +26,7 @@ if (cwd !== initCWD) {
 
 console.log(initCWD)
 console.log(cwd)
+
 // 项目代码检测配置
 
 const lintConfig = require(initCWD + '/lint.config.json');
