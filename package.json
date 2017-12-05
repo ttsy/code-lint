@@ -1,0 +1,16 @@
+{
+  "name": "asher-lint",
+  "version": "1.0.0",
+  "description": "",
+  "bin": "bin/asher-lint",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp lint"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.0"
+  }
+}

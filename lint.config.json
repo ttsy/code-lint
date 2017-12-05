@@ -1,0 +1,6 @@
+{
+    "asher-lint": [
+        "**/*.js",
+        "!node_modules/**/*.js"
+    ]
+}
