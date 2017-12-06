@@ -9,6 +9,7 @@ const fs = require('fs');
 
 // 运行检测命令的目录
 const initCWD = process.env.INIT_CWD;
+//当前工作目录
 const cwd = process.cwd();
 
 const lintConfigFiles = ['.eslintrc.js', '.eslintignore'];
@@ -21,7 +22,7 @@ if (cwd !== initCWD) {
 }
 
 // 项目代码检测配置
-const lintConfig = require(initCWD + '/lint.config.json');
+const lintConfigJson = require(initCWD + '/lint.config.json');
 
 let argv = require('yargs')
     .alias('p', 'projects')
@@ -36,9 +37,9 @@ let projects = argv.p + '';
 
 const tasks = projects.replace(/\s/gi, '').split(',');
 
-for (let obj in lintConfig) {
-    if (lintConfig.hasOwnProperty(obj) && (tasks.indexOf(obj) !== -1 || !argv.p)) {
-        lintConfig[obj].map(function (val) {
+for (let obj in lintConfigJson) {
+    if (lintConfigJson.hasOwnProperty(obj) && (tasks.indexOf(obj) !== -1 || !argv.p)) {
+        lintConfigJson[obj].map(function (val) {
             let fileType = val.substr(val.lastIndexOf('.') + 1);
             let filesPath = path.join(initCWD, val);
             if (filesPath.indexOf('!') !== -1) {
