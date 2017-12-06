@@ -18,9 +18,9 @@
   
 ## 项目其它说明
 
-eslint 配置（.eslintrc.js）参考 eslint-config-google
+eslint 配置（.eslintrc.js）参考 eslint-config-google 。
 若有配置修改，则会注释掉原先配置，后注明 ttsy comment，并增加新的配置项，后注明 ttsy increase
 
 ## 注意事项
   
-如有请在此说明
+暂无

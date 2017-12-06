@@ -26,6 +26,7 @@ module.exports = {
     extends: "eslint:recommended",
     parserOptions: {
         "ecmaVersion":6,
+        "sourceType": "module",
     },
     rules: {
         // The rules below are listed in the order they appear on the eslint
@@ -174,7 +175,8 @@ module.exports = {
         // 'no-undef': 2, // eslint:recommended
         // 'no-undef-init': 0,
         // 'no-undefined': 0,
-        'no-unused-vars': [2, {args: 'none'}], // eslint:recommended
+        // 'no-unused-vars': [2, {args: 'none'}], // eslint:recommended  //ttsy comment
+        'no-unused-vars': 0, // eslint:recommended  //ttsy increase
         // 'no-use-before-define': 0,
 
         // Node.js and CommonJS
