@@ -7,7 +7,14 @@
   "scripts": {
     "test": "gulp lint --gulpfile lint.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ttsy/ttsy-lint.git"
+  },
+  "keywords": [
+    "lint"
+  ],
+  "author": "ttsy",
   "license": "ISC",
   "dependencies": {
     "gulp": "^3.9.1",

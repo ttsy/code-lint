@@ -1,7 +1,3 @@
-/**
- * @author paco
- * @description 前端代码规范检测
- */
 'use strict';
 
 /* eslint-disable no-console */
@@ -19,16 +15,12 @@ const lintConfigFiles = ['.eslintrc.js', '.eslintignore'];
 
 // 拷贝检测配置文件
 if (cwd !== initCWD) {
-    lintConfigFiles.map((v) => {
-        fs.createReadStream(v).pipe(fs.createWriteStream(path.join(initCWD, v)));
+    lintConfigFiles.map((val) => {
+        fs.createReadStream(val).pipe(fs.createWriteStream(path.join(initCWD, val)));
     });
 }
 
-console.log(initCWD)
-console.log(cwd)
-
 // 项目代码检测配置
-
 const lintConfig = require(initCWD + '/lint.config.json');
 
 let argv = require('yargs')
@@ -44,11 +36,11 @@ let projects = argv.p + '';
 
 const tasks = projects.replace(/\s/gi, '').split(',');
 
-for (let k in lintConfig) {
-    if (lintConfig.hasOwnProperty(k) && (tasks.indexOf(k) !== -1 || !argv.p)) {
-        lintConfig[k].map(function (v) {
-            let fileType = v.substr(v.lastIndexOf('.') + 1);
-            let filesPath = path.join(initCWD, v);
+for (let obj in lintConfig) {
+    if (lintConfig.hasOwnProperty(obj) && (tasks.indexOf(obj) !== -1 || !argv.p)) {
+        lintConfig[obj].map(function (val) {
+            let fileType = val.substr(val.lastIndexOf('.') + 1);
+            let filesPath = path.join(initCWD, val);
             if (filesPath.indexOf('!') !== -1) {
                 filesPath = '!' + filesPath.replace('!', '');
             }
@@ -57,7 +49,7 @@ for (let k in lintConfig) {
     }
 }
 
-// js 代码规范检测，不想被检测的代码命名为 *.min.js 即可
+// js 代码规范检测
 gulp.task('eslint', function () {
     return gulp.src(lintFiles.js.concat(lintFiles.vue))
         .pipe(eslint())
@@ -70,8 +62,8 @@ gulp.task('eslint', function () {
 gulp.task('lint', ['eslint'], function () {
     if (cwd !== initCWD) {
         // 移除检测配置文件
-        lintConfigFiles.map((v) => {
-            fs.unlinkSync(path.join(initCWD, v));
+        lintConfigFiles.map((val) => {
+            fs.unlinkSync(path.join(initCWD, val));
         });
     }
 });
