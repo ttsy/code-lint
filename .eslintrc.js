@@ -202,7 +202,8 @@ module.exports = {
         'array-element-newline': 0, // eslint:recommended
         'block-spacing': [2, 'never'],
         'brace-style': 2,
-        'camelcase': [2, {properties: 'never'}],
+        // 'camelcase': [2, {properties: 'never'}],  //ttsy comment
+        'camelcase': 0,  //ttsy increase
         // 'capitalized-comments': 0,
         'comma-dangle': [2, 'always-multiline'],
         'comma-spacing': 2,
@@ -281,13 +282,14 @@ module.exports = {
         // 'padding-line-between-statements': 0,
         'quote-props': [2, 'consistent'],
         'quotes': [2, 'single', {allowTemplateLiterals: true}],
-        'require-jsdoc': [2, {
-            require: {
-                FunctionDeclaration: true,
-                MethodDefinition: true,
-                ClassDeclaration: true,
-            },
-        }],
+        // 'require-jsdoc': [2, {  //ttsy comment
+        //     require: {
+        //         FunctionDeclaration: true,
+        //         MethodDefinition: true,
+        //         ClassDeclaration: true,
+        //     },
+        // }],
+        'require-jsdoc': 0,  //ttsy increase
         // 'semi': 2,  //ttsy comment
         'semi': 0,  //ttsy increase
         'semi-spacing': 2,
@@ -300,7 +302,7 @@ module.exports = {
         //     anonymous: 'never',
         //     named: 'never',
         // }],
-        'space-before-function-paren': [2, 'always'],  //ttsy increase
+        'space-before-function-paren': 0,  //ttsy increase
         // 'space-in-parens': 0,
         // 'space-infix-ops': 0,
         // 'space-unary-ops': 0,
