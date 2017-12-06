@@ -268,11 +268,12 @@ module.exports = {
         // 'object-curly-newline': 0,
         'object-curly-spacing': 2,
         // 'object-property-newline': 0,
-        'one-var': [2, {
-            var: 'never',
-            let: 'never',
-            const: 'never',
-        }],
+        // 'one-var': [2, {  //ttsy comment
+        //     var: 'never',
+        //     let: 'never',
+        //     const: 'never',
+        // }],
+        'one-var': 0,  //ttsy comment
         // 'one-var-declaration-per-line': 0,
         // 'operator-assignment': 0,
         // 'operator-linebreak': 0,
@@ -287,7 +288,8 @@ module.exports = {
                 ClassDeclaration: true,
             },
         }],
-        'semi': 2,
+        // 'semi': 2,  //ttsy comment
+        'semi': 0,  //ttsy increase
         'semi-spacing': 2,
         // 'semi-style': 0,
         // 'sort-keys': 0,
