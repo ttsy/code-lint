@@ -9,7 +9,7 @@ const fs = require('fs');
 
 // 运行检测命令的目录
 const initCWD = process.env.INIT_CWD;
-//当前工作目录
+// 当前工作目录
 const cwd = process.cwd();
 
 const lintConfigFiles = ['.eslintrc.js', '.eslintignore'];
