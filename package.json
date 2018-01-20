@@ -2,14 +2,16 @@
   "name": "ttsy-lint",
   "version": "1.0.0",
   "description": "",
-  "bin": "bin/ttsy-lint",
   "main": "index.js",
+  "bin": {
+    "ttsy-lint": "./bin/ttsy-lint"
+  },
   "scripts": {
     "test": "gulp lint --gulpfile lint.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ttsy/ttsy-lint.git"
+    "url": ""
   },
   "keywords": [
     "lint"
