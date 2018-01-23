@@ -1,13 +1,6 @@
 /* eslint-disable no-console */
 
-const exec = require('child_process').exec;
 const path = require('path');
-const cmd = 'gulp lint --gulpfile ' + path.join(__dirname, 'lint.js');
+const shelljs = require('shelljs');
 
-exec(cmd, function (error, stdout, stderr) {
-    console.log(stdout);
-    if (error) {
-        console.log(stderr);
-        process.exit(1);
-    }
-});
+shelljs.exec('gulp lint --gulpfile ' + path.join(__dirname, 'lint.js'));
