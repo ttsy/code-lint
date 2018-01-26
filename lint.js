@@ -24,21 +24,13 @@ if (cwd !== initCWD) {
 // 项目代码检测配置
 const lintConfigJson = require(initCWD + '/lint.config.json');
 
-let argv = require('yargs')
-    .alias('p', 'projects')
-    .argv;
-
 let lintFiles = {
     js: [],
     vue: [],
 };
 
-let projects = argv.p + '';
-
-const tasks = projects.replace(/\s/gi, '').split(',');
-
 for (let obj in lintConfigJson) {
-    if (lintConfigJson.hasOwnProperty(obj) && (tasks.indexOf(obj) !== -1 || !argv.p)) {
+    if (lintConfigJson.hasOwnProperty(obj)) {
         lintConfigJson[obj].map(function (val) {
             let fileType = val.substr(val.lastIndexOf('.') + 1);
             let filesPath = path.join(initCWD, val);

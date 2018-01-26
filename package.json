@@ -21,7 +21,6 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
-    "shelljs": "^0.8.1",
-    "yargs": "^10.0.3"
+    "shelljs": "^0.8.1"
   }
 }
