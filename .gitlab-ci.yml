@@ -11,11 +11,15 @@ stages:
 # 安装依赖
 npm_install:
   stage: install_deps
+  tags:
+      - ttsy
   script:
     - npm install
 
 # 运行测试用例
 npm_test:
   stage: test
+  tags:
+      - ttsy
   script:
     - npm run test
