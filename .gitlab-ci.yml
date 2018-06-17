@@ -5,7 +5,14 @@ cache:
     - node_modules/
 
 stages:
+  - install_deps
   - test
+
+# 安装依赖
+npm_install:
+  stage: install_deps
+  script:
+    - npm install
 
 # 运行测试用例
 npm_test:
