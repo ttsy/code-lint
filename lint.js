@@ -9,7 +9,7 @@ const fs = require('fs');
 
 // 运行检测命令的目录
 const initCWD = process.env.INIT_CWD;
-// 当前工作目录
+// 当前工作目录（--gulpfile lint.js 会将 cwd 设置为 lint.js 所在目录）
 const cwd = process.cwd();
 
 const lintConfigFiles = ['.eslintrc.js', '.eslintignore'];

@@ -1,0 +1,14 @@
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules/
+
+stages:
+  - test
+
+# 运行测试用例
+npm_test:
+  stage: test
+  script:
+    - npm test
