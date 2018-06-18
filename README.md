@@ -4,13 +4,12 @@
   
 ## 相关路径
   
-* **repo：** [https://github.com/ttsy/ttsy-lint.git](https://github.com/ttsy/ttsy-lint.git)
-* **QA 地址：**
+- **repo：** [https://github.com/ttsy/ttsy-lint.git](https://github.com/ttsy/ttsy-lint.git)
   
 ## 技术说明
   
-* 构建工具：gulp
-* 库：gulp-eslint
+- 构建工具：gulp
+- 库：gulp-eslint
   
 ## 其它说明
 
@@ -19,4 +18,4 @@ eslint 配置（.eslintrc.js）参考 eslint-config-google 。
 
 ## 注意事项
   
-暂无
+- 提交代码后要注意 CI 平台看代码检测是否通过。
