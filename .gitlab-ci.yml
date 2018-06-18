@@ -1,3 +1,9 @@
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules/
+
 stages:
   - install_deps
   - test
@@ -11,7 +17,7 @@ npm_install:
     - npm install
 
 # 运行测试用例
-npm_test:   
+npm_test:
   stage: test
   tags:
       - lint
