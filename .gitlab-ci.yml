@@ -12,7 +12,7 @@ stages:
 npm_install:
   stage: install_deps
   tags:
-      - ttsy
+      - lint
   script:
     - npm install
 
