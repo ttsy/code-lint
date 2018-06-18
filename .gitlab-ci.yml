@@ -20,6 +20,6 @@ npm_install:
 npm_test:
   stage: test
   tags:
-      - ttsy
+      - ttsy-lint
   script:
     - npm run test
