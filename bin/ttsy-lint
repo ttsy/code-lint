@@ -2,5 +2,5 @@
 
 const path = require('path');
 const shelljs = require('shelljs');
-
+console.log(__dirname)
 shelljs.exec('gulp lint --gulpfile ' + path.join(__dirname, 'lint.js'));
