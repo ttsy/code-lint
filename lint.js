@@ -1,6 +1,7 @@
 'use strict';
 
 /* eslint-disable no-console */
+console.log(123)
 const gulp = require('gulp');
 const path = require('path');
 const eslint = require('gulp-eslint');
