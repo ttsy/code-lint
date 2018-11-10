@@ -1,8 +1,5 @@
-**/dist/
-**/vendor/
 **/node_modules/
-**/jsdocs/
+**/node_modules/
+**/dist/
 **/*.min.js
-**/jquery.*.js
-**/jquery-*.js
 

@@ -7,7 +7,7 @@
     "ttsy-lint": "./bin/ttsy-lint"
   },
   "scripts": {
-    "test": "gulp lint --gulpfile lint.js"
+    "test": "gulp --gulpfile lint.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,13 @@
   "author": "ttsy",
   "license": "ISC",
   "dependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-html": "^4.0.6",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
     "shelljs": "^0.8.1"

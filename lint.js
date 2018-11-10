@@ -14,7 +14,7 @@ const cwd = process.cwd();
 
 const lintConfigFiles = ['.eslintrc.js', '.eslintignore'];
 
-// 拷贝检测配置文件
+// 拷贝检测配置文件至运行检测命令的目录
 if (cwd !== initCWD) {
     lintConfigFiles.map((val) => {
         fs.createReadStream(val).pipe(fs.createWriteStream(path.join(initCWD, val)));
@@ -26,7 +26,7 @@ const lintConfigJson = require(initCWD + '/lint.config.json');
 
 let lintFiles = {
     js: [],
-    vue: [],
+    vue: []
 };
 
 for (let obj in lintConfigJson) {
@@ -50,9 +50,8 @@ gulp.task('eslint', function () {
         .pipe(eslint.failAfterError());
 });
 
-
-// lint task
-gulp.task('lint', ['eslint'], function () {
+// default task
+gulp.task('default', ['eslint'], function () {
     if (cwd !== initCWD) {
         // 移除检测配置文件
         lintConfigFiles.map((val) => {
