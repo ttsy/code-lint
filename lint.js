@@ -47,8 +47,8 @@ gulp.task('eslint', function () {
     .pipe(eslint.failAfterError());
 });
 
-// default task
-gulp.task('default', ['eslint'], function () {
+// lint task
+gulp.task('lint', ['eslint'], function () {
   if (cwd !== initCWD) {
     // 移除检测配置文件
     lintConfigFiles.map((val) => {
