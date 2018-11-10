@@ -1,23 +1,23 @@
-// https://eslint.org/docs/user-guide/configuring
 
-module.exports = {
+const initCWD = process.env.INIT_CWD;
+const lintConfigJson = require(initCWD + '/lint.config.json');
+
+const eslintConfig = {
   root: true,
   env: {
     browser: true,
   },
-  globals: {
+  globals: Object.assign({
     '$': false,
     'jQuery': false,
-  },
+  }, lintConfigJson.globals),
   extends: [
-    // https://github.com/standard/standard/blob/master/docs/RULES-en.md
+    // https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md
     'standard'
   ],
-  // required to lint *.vue files
   plugins: [
     'html'
   ],
-  // add your custom rules here
   rules: {
     // 不强制使用一致的缩进
     'indent': 'off',
@@ -45,3 +45,5 @@ module.exports = {
     'no-useless-escape': 'off'
   }
 }
+
+module.exports = eslintConfig;

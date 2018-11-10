@@ -1,5 +1,5 @@
 {
-  "ttsy-lint": [
+  "lintTarget": [
     "**/*.js",
     "!node_modules/**/*.js"
   ]

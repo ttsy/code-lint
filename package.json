@@ -7,7 +7,8 @@
     "ttsy-lint": "./bin/ttsy-lint"
   },
   "scripts": {
-    "test": "gulp --gulpfile lint.js"
+    "lint": "gulp --gulpfile lint.js",
+    "lint_fix": "eslint --fix --ext .js ./"
   },
   "repository": {
     "type": "git",

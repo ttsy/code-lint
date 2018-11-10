@@ -1,7 +1,6 @@
 'use strict';
 
 /* eslint-disable no-console */
-
 const gulp = require('gulp');
 const path = require('path');
 const eslint = require('gulp-eslint');
@@ -23,24 +22,21 @@ if (cwd !== initCWD) {
 
 // 项目代码检测配置
 const lintConfigJson = require(initCWD + '/lint.config.json');
+const lintTarget = lintConfigJson.lintTarget;
 
 let lintFiles = {
   js: [],
   vue: []
 };
 
-for (let obj in lintConfigJson) {
-  if (lintConfigJson.hasOwnProperty(obj)) {
-    lintConfigJson[obj].map(function (val) {
-      let fileType = val.substr(val.lastIndexOf('.') + 1);
-      let filesPath = path.join(initCWD, val);
-      if (filesPath.indexOf('!') !== -1) {
-        filesPath = '!' + filesPath.replace('!', '');
-      }
-      lintFiles[fileType] && lintFiles[fileType].push(filesPath);
-    });
+lintTarget.map(function (val) {
+  let fileType = val.substr(val.lastIndexOf('.') + 1);
+  let filesPath = path.join(initCWD, val);
+  if (filesPath.indexOf('!') !== -1) {
+    filesPath = '!' + filesPath.replace('!', '');
   }
-}
+  lintFiles[fileType] && lintFiles[fileType].push(filesPath);
+});
 
 // js 代码规范检测
 gulp.task('eslint', function () {
