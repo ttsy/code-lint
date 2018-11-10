@@ -4,4 +4,4 @@ const path = require('path');
 const shelljs = require('shelljs');
 
 console.log(path.join(__dirname, 'lint.js'))
-shelljs.exec('gulp lint --gulpfile ' + path.join(__dirname, 'lint.js'));
+shelljs.exec('gulp --gulpfile ' + path.join(__dirname, '..', 'lint.js'));
