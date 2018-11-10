@@ -1,6 +1,6 @@
 {
-    "ttsy-lint": [
-        "**/*.js",
-        "!node_modules/**/*.js"
-    ]
+  "ttsy-lint": [
+    "**/*.js",
+    "!node_modules/**/*.js"
+  ]
 }
