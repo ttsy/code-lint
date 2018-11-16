@@ -11,6 +11,12 @@ const initCWD = process.env.INIT_CWD;
 // 当前工作目录（--gulpfile lint.js 会将 cwd 设置为 lint.js 所在目录）
 const cwd = process.cwd();
 
+let lintConfigFilePath = initCWD;
+if (process.env.isDiffLint) {
+  // 如果是 diff 检测，lint 临时配置文件存于 ttsy-lint 根路径下，而非使用 ttsy-lint 的项目目录下
+  lintConfigFilePath = __dirname;
+}
+
 const lintConfigFiles = ['.eslintrc.js', '.eslintignore'];
 
 // 拷贝检测配置文件至运行检测命令的目录
@@ -21,21 +27,27 @@ if (cwd !== initCWD) {
 }
 
 // 项目代码检测配置
-const lintConfigJson = require(initCWD + '/lint.config.json');
-const lintTarget = lintConfigJson.lintTarget;
+const lintConfigJson = require(path.join(lintConfigFilePath, process.env.lintConfigFile));
+const lintTargetFiles = lintConfigJson.lintTargetFiles;
 
 let lintFiles = {
   js: [],
   vue: []
 };
 
-lintTarget.map(function (val) {
+lintTargetFiles.map(function (val) {
   let fileType = val.substr(val.lastIndexOf('.') + 1);
-  let filesPath = path.join(initCWD, val);
-  if (filesPath.indexOf('!') !== -1) {
-    filesPath = '!' + filesPath.replace('!', '');
+  let filePath;
+  if (process.env.isDiffLint) { 
+    // 如果是 diff 检测，被检测文件已经配置为绝对路径，无需再拼接
+    filePath = val;
+  }else{
+    filePath = path.join(initCWD, val);
+    if (filePath.indexOf('!') !== -1) {
+      filePath = '!' + filePath.replace('!', '');
+    }
   }
-  lintFiles[fileType] && lintFiles[fileType].push(filesPath);
+  lintFiles[fileType] && lintFiles[fileType].push(filePath);
 });
 
 // js 代码规范检测
@@ -53,5 +65,9 @@ gulp.task('default', ['eslint'], function () {
     lintConfigFiles.map((val) => {
       fs.unlinkSync(path.join(initCWD, val));
     });
+  }
+  if (process.env.isDiffLint) { 
+    // 如果是 diff 检测，检测完后删除配置文件
+    fs.unlinkSync(path.join(cwd, process.env.lintConfigFile));
   }
 });

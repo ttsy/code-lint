@@ -9,6 +9,10 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
 ```
 ## 使用
 
+### 完整检测
+
+检测配置文件中配置的文件
+
 - 在根目录 package.json 文件中加入检测命令 
 
 ```
@@ -21,7 +25,7 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
 
 ```
 {
-  "lintTarget": [
+  "lintTargetFiles": [
     "**/*.js",
     "**/*.vue",
     "!node_modules/**/*.js"
@@ -40,6 +44,34 @@ globals 为全局变量配置，配置后 eslint 不会检测配置的未声明�
 
 ``` bash
 npm run lint
+```
+
+### diff 检测
+
+只检测本地 diff 的文件
+
+- 在根目录 package.json 文件中加入检测命令 
+
+```
+"scripts": {
+  "lint-diff": "ttsy-lint --localdiff"
+},
+```
+
+- 在根目录中加入配置文件，文件名为 lint.config.json，文件格式示例内容如下
+
+```
+{
+  "globals":{
+    "qq":false
+  }
+}
+```
+
+- 运行检测命令检测
+
+``` bash
+npm run lint-diff
 ```
 
 ## 规则
@@ -82,4 +114,16 @@ rules: {
   // 允许不必要的转义
   'no-useless-escape': 'off'
 }
+```
+
+## 命令
+
+``` bash
+# 完整检测
+ttsy-lint
+# 增量检测
+ttsy-lint --localdiff
+# 查看版本号
+ttsy-lint -v
+ttsy-lint --version
 ```

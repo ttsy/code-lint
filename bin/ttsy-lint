@@ -1,6 +1,37 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const shelljs = require('shelljs');
+const argv = require('yargs').argv;
+const exec = require('child_process').exec;
+const pjson = require(path.join(__dirname, '../package.json'));
+const util = require('../util');
 
-shelljs.exec('gulp --gulpfile ' + path.join(__dirname, '..', 'lint.js'));
+const param = {
+  version:(argv.v || argv.version), // 返回版本号
+  localdiff: argv.localdiff // 检测本地 diff 文件
+}
+
+if (param.version) {
+  console.log(pjson.version);
+  process.exit();
+}
+
+if (param.localdiff) { 
+  util.setGitLocalDiffFileList();
+  process.env.lintConfigFile = 'lint.local.diff.json';
+  process.env.isDiffLint = 'true';
+} else { // 检测所有已配置到 lint.config.json 里的文件
+  process.env.lintConfigFile = 'lint.config.json';
+}
+
+const cmd = 'gulp --gulpfile ' + path.join(__dirname, '..', 'lint.js');
+
+exec(cmd, function (error, stdout, stderr) {
+  console.log(stdout)
+  if (error) {
+    console.log(stderr);
+    process.exit(1);
+  } else {
+    
+  }
+});
