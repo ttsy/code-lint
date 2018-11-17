@@ -28,7 +28,7 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
   "lintTargetFiles": [
     "**/*.js",
     "**/*.vue",
-    "!node_modules/**/*.js"
+    "!**/ignore/*.js"
   ],
   "globals":{
     "qq":false
@@ -36,7 +36,7 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
 }
 ```
 
-lintTarget 为检测目标文件，如上为检测项目中所有 .js .vue 后缀的文件，忽略 node_modules 文件夹中 .js 后缀的文件检测。
+lintTarget 为检测目标文件，如上为检测项目中所有 .js .vue 后缀的文件，在前面加上 ! 则表示忽略检测的文件。
 
 globals 为全局变量配置，配置后 eslint 不会检测配置的未声明的变量，如上 eslint 不会检测变量名为 qq 的变量，即使它并未声明。默认已经配置了 $ 和 jQuery 变量。
 
@@ -46,7 +46,7 @@ globals 为全局变量配置，配置后 eslint 不会检测配置的未声明�
 npm run lint
 ```
 
-### diff 检测
+### localdiff 检测
 
 只检测本地 diff 的文件
 
@@ -54,7 +54,7 @@ npm run lint
 
 ```
 "scripts": {
-  "lint-diff": "ttsy-lint --localdiff"
+  "lint-localdiff": "ttsy-lint --localdiff"
 },
 ```
 
@@ -71,7 +71,7 @@ npm run lint
 - 运行检测命令检测
 
 ``` bash
-npm run lint-diff
+npm run lint-localdiff
 ```
 
 ## 规则
@@ -116,12 +116,24 @@ rules: {
 }
 ```
 
+## 忽略文件
+
+默认忽略检测的文件
+
+```
+ **/node_modules/**/*.js
+ **/node_modules/**/*.vue
+ **/dist/**/*.js
+ **/vendor/**/*.js
+ **/*.min.js
+```
+
 ## 命令
 
 ``` bash
 # 完整检测
 ttsy-lint
-# 增量检测
+# localdiff 检测
 ttsy-lint --localdiff
 # 查看版本号
 ttsy-lint -v
