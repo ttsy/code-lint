@@ -9,7 +9,7 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
 ```
 ## 使用
 
-### 完整检测
+### 定向检测
 
 检测配置文件中配置的文件
 
@@ -36,7 +36,7 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
 }
 ```
 
-lintTarget 为检测目标文件，如上为检测项目中所有 .js .vue 后缀的文件，在前面加上 ! 则表示忽略检测的文件。
+lintTargetFiles 为检测目标文件，如上为检测项目中所有 .js .vue 后缀的文件，在前面加上 ! 则表示忽略检测的文件。
 
 globals 为全局变量配置，配置后 eslint 不会检测配置的未声明的变量，如上 eslint 不会检测变量名为 qq 的变量，即使它并未声明。默认已经配置了 $ 和 jQuery 变量。
 
@@ -48,7 +48,7 @@ npm run lint
 
 ### localdiff 检测
 
-只检测本地 diff 的文件
+只检测本地 diff 的文件（包含 untracked 文件）
 
 - 在根目录 package.json 文件中加入检测命令 
 
@@ -131,7 +131,7 @@ rules: {
 ## 命令
 
 ``` bash
-# 完整检测
+# 定向检测
 ttsy-lint
 # localdiff 检测
 ttsy-lint --localdiff

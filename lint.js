@@ -1,28 +1,28 @@
 'use strict';
 
 /* eslint-disable no-console */
-const gulp = require('gulp');
 const path = require('path');
-const eslint = require('gulp-eslint');
 const fs = require('fs');
+const gulp = require('gulp');
+const eslint = require('gulp-eslint');
 
 // 运行检测命令的目录
-const initCWD = process.env.INIT_CWD;
+const lintCMDPath = process.env.INIT_CWD;
 // 当前工作目录（--gulpfile lint.js 会将 cwd 设置为 lint.js 所在目录）
 // const cwd = process.cwd();
 
 // eslint 默认忽略检测的文件
 const eslintIgnoreFiles = [
-  `!${initCWD}/**/node_modules/**/*.js`,
-  `!${initCWD}/**/node_modules/**/*.vue`,
-  `!${initCWD}/**/dist/**/*.js`,
-  `!${initCWD}/**/vendor/**/*.js`,
-  `!${initCWD}/**/*.min.js`
+  `!${lintCMDPath}/**/node_modules/**/*.js`,
+  `!${lintCMDPath}/**/node_modules/**/*.vue`,
+  `!${lintCMDPath}/**/dist/**/*.js`,
+  `!${lintCMDPath}/**/vendor/**/*.js`,
+  `!${lintCMDPath}/**/*.min.js`
 ];
 // eslint 占位文件，防止没人任何待检测文件时程序报错
-const eslintBaseFile = [`${initCWD}/lint-base.js`]; 
+const eslintBaseFile = [`${lintCMDPath}/lint-base.js`]; 
 
-let lintConfigFilePath = initCWD;
+let lintConfigFilePath = lintCMDPath;
 if (process.env.isDiffLint) {
   // 如果是 diff 检测，lint 临时配置文件存于 ttsy-lint 根路径下，而非使用 ttsy-lint 的项目目录下
   lintConfigFilePath = __dirname;
@@ -44,7 +44,7 @@ if (lintConfigJson.lintTargetFiles){
       // 如果是 diff 检测，被检测文件已经配置为绝对路径，无需再拼接
       filePath = val;
     } else {
-      filePath = path.join(initCWD, val);
+      filePath = path.join(lintCMDPath, val);
       if (filePath.indexOf('!') !== -1) {
         filePath = '!' + filePath.replace('!', '');
       }
@@ -52,12 +52,10 @@ if (lintConfigJson.lintTargetFiles){
     lintFiles[fileType] && lintFiles[fileType].push(filePath);
   });
 }else{
-  throw new Error('lint.config.json 未配置 lintTargetFiles 字段');
+  throw new Error('lint.config.json haven\'t configured lintTargetFiles field');
 }
 
-if (process.env.isDiffLint) {
-  console.log(`------ diff lint files ------\n${lintFiles.js.concat(lintFiles.vue).join('\n')}\n------ diff lint files ------`);
-}
+console.log(`------ lint files ------\n${lintFiles.js.concat(lintFiles.vue).join('\n')}\n------ lint files ------`);
 
 // js 代码规范检测
 gulp.task('eslint', function () {

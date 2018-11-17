@@ -5,7 +5,7 @@ const FileSync = require('lowdb/adapters/FileSync');
 
 module.exports = {
   // 设置本地的变动文件列表
-  setGitLocalDiffFileList: function () {
+  setLocalDiffFileList: function () {
     let adapter = new FileSync(path.join(__dirname, 'lint.local.diff.json'));
     let db = low(adapter);
     let diffFiles = shelljs.exec(`git diff --name-only`, { silent: true }).stdout.trim();

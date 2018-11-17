@@ -3,21 +3,21 @@
 const path = require('path');
 const argv = require('yargs').argv;
 const exec = require('child_process').exec;
-const pjson = require(path.join(__dirname, '../package.json'));
+const packageJson = require(path.join(__dirname, '../package.json'));
 const util = require('../util');
 
 const param = {
   version:(argv.v || argv.version), // 返回版本号
-  localdiff: argv.localdiff // 检测本地 diff 文件
+  localdiff: argv.localdiff // 检测本地 diff 文件（包含 untracked 文件）
 }
 
 if (param.version) {
-  console.log(pjson.version);
+  console.log(packageJson.version);
   process.exit();
 }
 
 if (param.localdiff) { 
-  util.setGitLocalDiffFileList();
+  util.setLocalDiffFileList();
   process.env.lintConfigFile = 'lint.local.diff.json';
   process.env.isDiffLint = 'true';
 } else { // 检测所有已配置到 lint.config.json 里的文件
@@ -31,7 +31,5 @@ exec(cmd, function (error, stdout, stderr) {
   if (error) {
     console.log(stderr);
     process.exit(1);
-  } else {
-    
   }
 });
