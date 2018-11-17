@@ -25,15 +25,8 @@ const eslintIgnoreFiles = [
   `!${initCWD}/**/node_modules/**/*.vue`,
   `!${initCWD}/**/*.min.js`
 ];
-
-// const lintConfigFiles = ['.eslintrc.js'];
-
-// 拷贝检测配置文件至运行检测命令的目录
-// if (cwd !== initCWD) {
-//   lintConfigFiles.map((val) => {
-//     fs.createReadStream(val).pipe(fs.createWriteStream(path.join(initCWD, val)));
-//   });
-// }
+// eslint 占位文件，防止没人任何待检测文件时程序报错
+const baseEslintBaseFile = [`${lintCMDPath}/lint-base.js`]; 
 
 // 项目代码检测配置
 const lintConfigJson = require(path.join(lintConfigFilePath, process.env.lintConfigFile));
@@ -67,7 +60,8 @@ if (process.env.isDiffLint) {
 gulp.task('eslint', function () {
   let files = lintFiles.js
               .concat(lintFiles.vue)
-              .concat(eslintIgnoreFiles);
+              .concat(eslintIgnoreFiles)
+              .concat(baseEslintBaseFile);
   // console.log(`------ eslint files ------\n${files.join('\n')}\n------ eslint files ------`);
   return gulp.src(files)
     .pipe(eslint({
@@ -79,12 +73,6 @@ gulp.task('eslint', function () {
 
 // default task
 gulp.task('default', ['eslint'], function () {
-  // if (cwd !== initCWD) {
-  //   // 移除检测配置文件
-  //   lintConfigFiles.map((val) => {
-  //     fs.unlinkSync(path.join(initCWD, val));
-  //   });
-  // }
   if (process.env.isDiffLint) { 
     // 如果是 diff 检测，检测完后删除配置文件
     fs.unlinkSync(path.join('.', process.env.lintConfigFile));
