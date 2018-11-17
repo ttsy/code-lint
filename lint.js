@@ -17,7 +17,16 @@ if (process.env.isDiffLint) {
   lintConfigFilePath = __dirname;
 }
 
-const lintConfigFiles = ['.eslintrc.js', '.eslintignore'];
+// eslint 忽略的检测文件
+const eslintIgnoreFiles = [
+  `!${initCWD}/**/dist/**/*.js`,
+  `!${initCWD}/**/vendor/**/*.js`,
+  `!${initCWD}/**/node_modules/**/*.js`,
+  `!${initCWD}/**/node_modules/**/*.vue`,
+  `!${initCWD}/**/*.min.js`
+];
+
+const lintConfigFiles = ['.eslintrc.js'];
 
 // 拷贝检测配置文件至运行检测命令的目录
 if (cwd !== initCWD) {
@@ -50,10 +59,20 @@ lintTargetFiles.map(function (val) {
   lintFiles[fileType] && lintFiles[fileType].push(filePath);
 });
 
+if (process.env.isDiffLint) {
+  console.log(`------ diff lint files ------\n${lintFiles.js.concat(lintFiles.vue).join('\n')}\n------ diff lint files ------`);
+}
+
 // js 代码规范检测
 gulp.task('eslint', function () {
-  return gulp.src(lintFiles.js.concat(lintFiles.vue))
-    .pipe(eslint())
+  let files = lintFiles.js
+              .concat(lintFiles.vue)
+              .concat(eslintIgnoreFiles);
+  // console.log(`------ eslint files ------\n${files.join('\n')}\n------ eslint files ------`);
+  return gulp.src(files)
+    .pipe(eslint({
+      configFile: '.eslintrc.js'
+    }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
@@ -68,6 +87,6 @@ gulp.task('default', ['eslint'], function () {
   }
   if (process.env.isDiffLint) { 
     // 如果是 diff 检测，检测完后删除配置文件
-    fs.unlinkSync(path.join(cwd, process.env.lintConfigFile));
+    fs.unlinkSync(path.join('.', process.env.lintConfigFile));
   }
 });

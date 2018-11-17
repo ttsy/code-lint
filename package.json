@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "ttsy-lint",
-    "lint-diff": "ttsy-lint --localdiff",
+    "lint-localdiff": "ttsy-lint --localdiff",
     "lint-fix": "eslint --fix --ext .js ./"
   },
   "repository": {

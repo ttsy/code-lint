@@ -1,6 +1,5 @@
 {
   "lintTargetFiles": [
-    "**/*.js",
-    "!node_modules/**/*.js"
+    "**/*.js"
   ]
 }
