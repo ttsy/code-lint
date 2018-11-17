@@ -26,7 +26,7 @@ const eslintIgnoreFiles = [
   `!${initCWD}/**/*.min.js`
 ];
 // eslint 占位文件，防止没人任何待检测文件时程序报错
-const baseEslintBaseFile = [`${lintCMDPath}/lint-base.js`]; 
+const baseEslintBaseFile = [`${initCWD}/lint-base.js`]; 
 
 // 项目代码检测配置
 const lintConfigJson = require(path.join(lintConfigFilePath, process.env.lintConfigFile));
