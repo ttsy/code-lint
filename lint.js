@@ -9,7 +9,7 @@ const fs = require('fs');
 // 运行检测命令的目录
 const initCWD = process.env.INIT_CWD;
 // 当前工作目录（--gulpfile lint.js 会将 cwd 设置为 lint.js 所在目录）
-const cwd = process.cwd();
+// const cwd = process.cwd();
 
 let lintConfigFilePath = initCWD;
 if (process.env.isDiffLint) {
@@ -26,14 +26,14 @@ const eslintIgnoreFiles = [
   `!${initCWD}/**/*.min.js`
 ];
 
-const lintConfigFiles = ['.eslintrc.js'];
+// const lintConfigFiles = ['.eslintrc.js'];
 
 // 拷贝检测配置文件至运行检测命令的目录
-if (cwd !== initCWD) {
-  lintConfigFiles.map((val) => {
-    fs.createReadStream(val).pipe(fs.createWriteStream(path.join(initCWD, val)));
-  });
-}
+// if (cwd !== initCWD) {
+//   lintConfigFiles.map((val) => {
+//     fs.createReadStream(val).pipe(fs.createWriteStream(path.join(initCWD, val)));
+//   });
+// }
 
 // 项目代码检测配置
 const lintConfigJson = require(path.join(lintConfigFilePath, process.env.lintConfigFile));
@@ -79,12 +79,12 @@ gulp.task('eslint', function () {
 
 // default task
 gulp.task('default', ['eslint'], function () {
-  if (cwd !== initCWD) {
-    // 移除检测配置文件
-    lintConfigFiles.map((val) => {
-      fs.unlinkSync(path.join(initCWD, val));
-    });
-  }
+  // if (cwd !== initCWD) {
+  //   // 移除检测配置文件
+  //   lintConfigFiles.map((val) => {
+  //     fs.unlinkSync(path.join(initCWD, val));
+  //   });
+  // }
   if (process.env.isDiffLint) { 
     // 如果是 diff 检测，检测完后删除配置文件
     fs.unlinkSync(path.join('.', process.env.lintConfigFile));
