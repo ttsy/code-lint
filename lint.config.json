@@ -1,5 +1,6 @@
 {
   "lintTargetFiles": [
-    "**/*.js"
+    "**/*.js",
+    "**/*.scss"
   ]
 }

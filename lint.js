@@ -5,6 +5,12 @@ const path = require('path');
 const fs = require('fs');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
+const sassLint = require('gulp-sass-lint');
+
+// eslint 配置
+const eslintConfig = '.eslintrc.js';
+// sasslint 配置
+const sasslintConfig = require('./.sasslintrc');
 
 // 运行检测命令的目录
 const lintCMDPath = process.env.INIT_CWD;
@@ -21,6 +27,15 @@ const eslintIgnoreFiles = [
 ];
 // eslint 占位文件，防止没人任何待检测文件时程序报错
 const eslintBaseFile = [`${lintCMDPath}/lint-base.js`]; 
+// sasslint 默认忽略检测的文件
+const sasslintIgnoreFiles = [
+  `!${lintCMDPath}/**/node_modules/**/*.scss`,
+  `!${lintCMDPath}/**/node_modules/**/*.vue`,
+  `!${lintCMDPath}/**/vendor/**/*.scss`,
+  `!${lintCMDPath}/**/*.min.scss`
+];
+// sasslint 占位文件，防止没人任何待检测文件时程序报错
+const sasslintBaseFile = [`${lintCMDPath}/lint-base.scss`]; 
 
 let lintConfigFilePath = lintCMDPath;
 if (process.env.isDiffLint) {
@@ -33,7 +48,8 @@ const lintConfigJson = require(path.join(lintConfigFilePath, process.env.lintCon
 
 let lintFiles = {
   js: [],
-  vue: []
+  vue: [],
+  scss: []
 };
 
 if (lintConfigJson.lintTargetFiles){
@@ -55,25 +71,39 @@ if (lintConfigJson.lintTargetFiles){
   throw new Error('lint.config.json haven\'t configured lintTargetFiles field');
 }
 
-console.log(`------ lint files ------\n${lintFiles.js.concat(lintFiles.vue).join('\n')}\n------ lint files ------`);
+console.log(`------ lint files ------\n${lintFiles.js.concat(lintFiles.vue).concat(lintFiles.scss).join('\n')}\n------ lint files ------`);
 
 // js 代码规范检测
 gulp.task('eslint', function () {
   let files = lintFiles.js
-              .concat(lintFiles.vue)
-              .concat(eslintIgnoreFiles)
-              .concat(eslintBaseFile);
+    .concat(lintFiles.vue)
+    .concat(eslintIgnoreFiles)
+    .concat(eslintBaseFile);
   // console.log(`------ eslint files ------\n${files.join('\n')}\n------ eslint files ------`);
   return gulp.src(files)
     .pipe(eslint({
-      configFile: '.eslintrc.js'
+      configFile: eslintConfig
     }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
+// sass 代码规范检测
+gulp.task('sasslint', function () {
+  let files = lintFiles.scss
+    .concat(lintFiles.vue)
+    .concat(sasslintIgnoreFiles)
+    .concat(sasslintBaseFile);
+  // console.log(`------ sasslint files ------\n${files.join('\n')}\n------ sasslint files ------`);
+  return gulp
+    .src(files)
+    .pipe(sassLint(sasslintConfig))
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError());
+});
+
 // default task
-gulp.task('default', ['eslint'], function () {
+gulp.task('default', ['eslint', 'sasslint'], function () {
   if (process.env.isDiffLint) { 
     // 如果是 diff 检测，检测完后删除配置文件
     fs.unlinkSync(path.join('.', process.env.lintConfigFile));
