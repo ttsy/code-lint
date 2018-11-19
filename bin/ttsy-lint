@@ -7,8 +7,8 @@ const packageJson = require(path.join(__dirname, '../package.json'));
 const util = require('../util');
 
 const param = {
-  version:(argv.v || argv.version), // 返回版本号
-  localdiff: argv.localdiff // 检测本地 diff 文件（包含 untracked 文件）
+  version:(argv.v || argv.version), // 查看版本号
+  localdiff: argv.localdiff // localdiff 检测（包含 untracked 文件）
 }
 
 if (param.version) {
@@ -20,7 +20,7 @@ if (param.localdiff) {
   util.setLocalDiffFileList();
   process.env.lintConfigFile = 'lint.local.diff.json';
   process.env.isDiffLint = 'true';
-} else { // 检测所有已配置到 lint.config.json 里的文件
+} else { 
   process.env.lintConfigFile = 'lint.config.json';
 }
 

@@ -23,7 +23,7 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
 
 - 在根目录中加入配置文件，文件名为 lint.config.json，文件格式示例内容如下
 
-```
+```js
 {
   "lintTargetFiles": [
     "**/*.js",
@@ -48,7 +48,7 @@ npm run lint
 
 ### localdiff 检测
 
-只检测本地 diff 的文件（包含 untracked 文件）
+只检测本地 diff 的文件（包含 untracked 文件）。diff 检测允许没有配置文件 lint.config.json。
 
 - 在根目录 package.json 文件中加入检测命令 
 
@@ -56,16 +56,6 @@ npm run lint
 "scripts": {
   "lint-localdiff": "ttsy-lint --localdiff"
 },
-```
-
-- 在根目录中加入配置文件，文件名为 lint.config.json，文件格式示例内容如下
-
-```
-{
-  "globals":{
-    "qq":false
-  }
-}
 ```
 
 - 运行检测命令检测
@@ -76,7 +66,7 @@ npm run lint-localdiff
 
 ## 规则
 
-eslint 检测规则由 eslint-config-standard 和自定义规则组成。
+检测规则继承 eslint-config-standard 中的规则，并根据自身项目需要添加自定义规则。
 
 ### eslint-config-standard
 [https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md](https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md)
@@ -85,7 +75,7 @@ eslint 检测规则由 eslint-config-standard 和自定义规则组成。
 
 [https://cn.eslint.org/docs/rules/](https://cn.eslint.org/docs/rules/)
 
-目前自定义规则如下
+默认自定义规则如下
 
 ```js
 rules: {
@@ -113,6 +103,17 @@ rules: {
   'no-new': 'off',
   // 允许不必要的转义
   'no-useless-escape': 'off'
+}
+```
+
+## 配置文件
+
+配置文件需放在根目录下，命名为 lint.config.json。仅在 localdiff 检测下不需要配置文件。
+
+```js
+{
+  "lintTargetFiles": [], // 检测目标文件（定向检测 必选）
+  "globals":{} // eslint 全局对象（可选）
 }
 ```
 
