@@ -90,7 +90,7 @@ scss-lint rules：
 ```js
 {
   "lintTargetFiles": [], // 检测目标文件（定向检测 必选）
-  "lintType":{}, // 检测类型（可选）。默认检测 js scss
+  "lintType":{}, // 检测类型（可选）。js 默认开启、scss 默认关闭，scss 只能检测 .scss 文件而不能检测 .vue 文件
   "globals":{}, // eslint 全局对象，规则同 eslint globals 属性（可选）。默认已经配置了 $ 和 jQuery 变量。
 }
 ```

@@ -1,6 +1,10 @@
 {
   "lintTargetFiles": [
     "**/*.js",
-    "**/*.scss"
-  ]
+    "**/*.vue"
+  ],
+  "lintType":{
+    "js":false,
+    "scss":false
+  }
 }

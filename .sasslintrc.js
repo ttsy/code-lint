@@ -9,19 +9,33 @@ module.exports = {
     'merge-default-rules': false,
   },
   rules: {
-    // 块间不能有空格
+    // 属性选择器属性值必须有引号
+    'attribute-quotes':[
+      2,
+      {
+        'include':true
+      }
+    ],
+    // 大括号不能换行，允许单行规则
+    'brace-style': [
+      2,
+      {
+        'allow-single-line': true,
+      },
+    ],
+    // mixin 如果没有定义参数，include 的时候也要加上括号
+    'empty-args':[
+      2,
+      {
+        'include':true
+      }
+    ],
+    // 块间不能有空行，允许单行规则
     'empty-line-between-blocks': [
       2,
       {
         'include':false,
         'ignore-single-line-rulesets': true
-      },
-    ],
-    // 大括号不能换行
-    'brace-style': [
-      2,
-      {
-        'allow-single-line': true,
       },
     ],
     // 十六进制值长度必须为长值

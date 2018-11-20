@@ -66,7 +66,7 @@ let typeObj = {
 }
 let defaultLintType = {
   'js':true, 
-  'sass':true
+  'sass':false
 };
 let lintType = lintConfigJson.lintType || defaultLintType;
 let lintTask = [];
@@ -79,7 +79,7 @@ for (let key in lintType){
 if (lintType['js']){
   console.log(`------ lint files ------\n${lintFiles.js.concat(lintFiles.vue).join('\n')}\n------ lint files ------`);
 } else if (lintType['sass'] || lintType['scss']){
-  console.log(`------ lint files ------\n${lintFiles.scss.join('\n')}\n------ lint files ------`);
+  console.log(`------ lint files ------\n${lintFiles.scss.concat(lintFiles.vue).join('\n')}\n------ lint files ------`);
 }
 
 // js 代码规范检测
@@ -97,7 +97,7 @@ gulp.task('eslint', function () {
     .pipe(eslint.failAfterError());
 });
 
-// sass 代码规范检测
+// sass 代码规范检测（只能检测 .scss 文件，不能检测 .vue 文件）
 gulp.task('sasslint', function () {
   let files = lintFiles.scss
     .concat(lintFiles.vue)
