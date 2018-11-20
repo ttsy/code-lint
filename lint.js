@@ -4,18 +4,16 @@
 const path = require('path');
 const fs = require('fs');
 const gulp = require('gulp');
-const eslint = require('gulp-eslint');
-const sassLint = require('gulp-sass-lint');
+const gulpEslint = require('gulp-eslint');
+const gulpStylelint = require('gulp-stylelint');
 var extend = require('extend');
 
 // eslint 默认忽略检测的文件
 const eslintIgnoreFiles = require('./eslintignore');
-// sasslint 默认忽略检测的文件
-const sasslintIgnoreFiles = require('./sasslintignore');
+// stylelint 默认忽略检测的文件
+const stylelintIgnoreFiles = require('./stylelintignore');
 // eslint 配置
 const eslintConfig = '.eslintrc.js';
-// sasslint 配置
-const sasslintConfig = require('./.sasslintrc');
 
 // 运行检测命令的目录
 const lintCMDPath = process.env.INIT_CWD;
@@ -24,8 +22,8 @@ const lintCMDPath = process.env.INIT_CWD;
 
 // eslint 占位文件，防止没人任何待检测文件时程序报错
 const eslintBaseFile = [`${lintCMDPath}/lint-base.js`]; 
-// sasslint 占位文件，防止没人任何待检测文件时程序报错
-const sasslintBaseFile = [`${lintCMDPath}/lint-base.scss`]; 
+// stylelint 占位文件，防止没人任何待检测文件时程序报错
+const stylelintBaseFile = [`${lintCMDPath}/lint-base.css`]; 
 
 // eslint 配置文件 lint.config.json
 let lintConfigJson = require(path.join(lintCMDPath, 'lint.config.json'));
@@ -37,7 +35,9 @@ if (process.env.isDiffLint) {
 let lintFiles = {
   js: [],
   vue: [],
-  scss: []
+  css: [],
+  scss: [],
+  less: []
 };
 
 if (lintConfigJson.lintTargetFiles){
@@ -61,12 +61,11 @@ if (lintConfigJson.lintTargetFiles){
 
 let typeObj = {
   'js': 'eslint',
-  'sass': 'sasslint',
-  'scss': 'sasslint'
+  'css':'stylelint',
 }
 let defaultLintType = {
   'js':true, 
-  'sass':false
+  'css':true
 };
 let lintType = lintConfigJson.lintType || defaultLintType;
 let lintTask = [];
@@ -78,8 +77,8 @@ for (let key in lintType){
 
 if (lintType['js']){
   console.log(`------ lint files ------\n${lintFiles.js.concat(lintFiles.vue).join('\n')}\n------ lint files ------`);
-} else if (lintType['sass'] || lintType['scss']){
-  console.log(`------ lint files ------\n${lintFiles.scss.concat(lintFiles.vue).join('\n')}\n------ lint files ------`);
+} else if (lintType['css']){
+  console.log(`------ lint files ------\n${lintFiles.css.concat(lintFiles.vue).concat(lintFiles.scss).concat(lintFiles.less).join('\n')}\n------ lint files ------`);
 }
 
 // js 代码规范检测
@@ -90,25 +89,28 @@ gulp.task('eslint', function () {
     .concat(eslintBaseFile);
   // console.log(`------ eslint files ------\n${files.join('\n')}\n------ eslint files ------`);
   return gulp.src(files)
-    .pipe(eslint({
+    .pipe(gulpEslint({
       configFile: eslintConfig
     }))
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+    .pipe(gulpEslint.format())
+    .pipe(gulpEslint.failAfterError());
 });
 
-// sass 代码规范检测（只能检测 .scss 文件，不能检测 .vue 文件）
-gulp.task('sasslint', function () {
-  let files = lintFiles.scss
+// css 代码规范检测
+gulp.task('stylelint', function() {
+  let files = lintFiles.css
     .concat(lintFiles.vue)
-    .concat(sasslintIgnoreFiles)
-    .concat(sasslintBaseFile);
-  // console.log(`------ sasslint files ------\n${files.join('\n')}\n------ sasslint files ------`);
-  return gulp
-    .src(files)
-    .pipe(sassLint(sasslintConfig))
-    .pipe(sassLint.format())
-    .pipe(sassLint.failOnError());
+    .concat(lintFiles.scss)
+    .concat(lintFiles.less)
+    .concat(stylelintIgnoreFiles)
+    .concat(stylelintBaseFile);
+  
+  return gulp.src(files)
+    .pipe(gulpStylelint({
+      reporters: [
+        { formatter: 'string', console: true }
+      ]
+    }));
 });
 
 // default task
