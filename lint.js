@@ -7,6 +7,10 @@ const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const sassLint = require('gulp-sass-lint');
 
+// eslint 默认忽略检测的文件
+const eslintIgnoreFiles = require('./eslintignore');
+// sasslint 默认忽略检测的文件
+const sasslintIgnoreFiles = require('./sasslintignore');
 // eslint 配置
 const eslintConfig = '.eslintrc.js';
 // sasslint 配置
@@ -17,23 +21,8 @@ const lintCMDPath = process.env.INIT_CWD;
 // 当前工作目录（--gulpfile lint.js 会将 cwd 设置为 lint.js 所在目录）
 // const cwd = process.cwd();
 
-// eslint 默认忽略检测的文件
-const eslintIgnoreFiles = [
-  `!${lintCMDPath}/**/node_modules/**/*.js`,
-  `!${lintCMDPath}/**/node_modules/**/*.vue`,
-  `!${lintCMDPath}/**/dist/**/*.js`,
-  `!${lintCMDPath}/**/vendor/**/*.js`,
-  `!${lintCMDPath}/**/*.min.js`
-];
 // eslint 占位文件，防止没人任何待检测文件时程序报错
 const eslintBaseFile = [`${lintCMDPath}/lint-base.js`]; 
-// sasslint 默认忽略检测的文件
-const sasslintIgnoreFiles = [
-  `!${lintCMDPath}/**/node_modules/**/*.scss`,
-  `!${lintCMDPath}/**/node_modules/**/*.vue`,
-  `!${lintCMDPath}/**/vendor/**/*.scss`,
-  `!${lintCMDPath}/**/*.min.scss`
-];
 // sasslint 占位文件，防止没人任何待检测文件时程序报错
 const sasslintBaseFile = [`${lintCMDPath}/lint-base.scss`]; 
 
