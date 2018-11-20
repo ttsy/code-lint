@@ -28,7 +28,9 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
   "lintTargetFiles": [
     "**/*.js",
     "**/*.vue",
+    "**/*.css",
     "**/*.scss",
+    "**/*.less",
     "!**/ignore/*.js"
   ]
 }
@@ -74,13 +76,12 @@ eslint-config-standard：[https://github.com/standard/standard/blob/master/docs/
 自定义 eslint 规则：
 [.eslintrc.js](./.eslintrc.js)
 
-### scss 检测规则
+### css 检测规则
 
-scss-lint rules：
-[https://github.com/sasstools/sass-lint/tree/master/docs/rules](https://github.com/sasstools/sass-lint/tree/master/docs/rules)
+css 检测包含了 css、scss、less 的检测
 
-自定义 scss-lint 规则：
-[.sasslintrc.js](./.sasslintrc.js)
+自定义 stylelint 规则：
+[.stylelintrc.js](./.stylelintrc.js)
 
 
 ## 配置文件
@@ -102,12 +103,14 @@ scss-lint rules：
   "lintTargetFiles": [
     "**/*.js",
     "**/*.vue",
+    "**/*.css",
     "**/*.scss",
+    "**/*.less",
     "!**/ignore/*.js"
   ],
   "lintType":{
     "js":true,
-    "scss":false
+    "css":true
   },
   "globals":{
     "qq":false
@@ -127,13 +130,19 @@ js 检测默认忽略文件
 **/*.min.js
 ```
 
-scss 检测默认忽略文件
+css 检测默认忽略文件
 
 ```
-**/node_modules/**/*.scss
+**/node_modules/**/*.css
 **/node_modules/**/*.vue
+**/node_modules/**/*.scss
+**/node_modules/**/*.less
+**/vendor/**/*.css
 **/vendor/**/*.scss
+**/vendor/**/*.less
+**/*.min.css
 **/*.min.scss
+**/*.min.less
 ```
 
 ## 命令

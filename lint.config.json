@@ -7,7 +7,7 @@
     "**/*.less"
   ],
   "lintType":{
-    "js":false,
-    "css":true
+    "js":true,
+    "css":false
   }
 }
