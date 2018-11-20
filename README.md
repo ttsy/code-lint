@@ -1,6 +1,6 @@
 # ttsy-lint
 
-> js 代码规范检测
+> 代码规范检测
 
 ## 安装
 
@@ -28,17 +28,13 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
   "lintTargetFiles": [
     "**/*.js",
     "**/*.vue",
+    "**/*.scss",
     "!**/ignore/*.js"
-  ],
-  "globals":{
-    "qq":false
-  }
+  ]
 }
 ```
 
-lintTargetFiles 为检测目标文件，如上为检测项目中所有 .js .vue 后缀的文件，在前面加上 ! 则表示忽略检测的文件。
-
-globals 为全局变量配置，配置后 eslint 不会检测配置的未声明的变量，如上 eslint 不会检测变量名为 qq 的变量，即使它并未声明。默认已经配置了 $ 和 jQuery 变量。
+lintTargetFiles 为检测目标文件，在前面加上 ! 则表示忽略检测的文件。
 
 - 运行检测命令检测
 
@@ -75,36 +71,8 @@ npm run lint-localdiff
 
 [https://cn.eslint.org/docs/rules/](https://cn.eslint.org/docs/rules/)
 
-默认自定义规则如下
-
-```js
-rules: {
-  // 不强制使用一致的缩进
-  'indent': 'off',
-  // 不强制使用一致的反勾号、双引号或单引号
-  'quotes': 'off',
-  // 不要求在语句末尾是否需要添加分号
-  'semi': 'off',
-  // 不要求一定要使用 === 和 !==
-  'eqeqeq': 'off',
-  // 不要求函数圆括号之前是否需要一个空格
-  'space-before-function-paren': 'off',
-  // 不要求语句块之前是否需要空格
-  'space-before-blocks': 'off',
-  // 不强制在关键字前后使用一致的空格
-  'keyword-spacing': 'off',
-  // 不强制在对象字面量的键和值之间使用一致的空格
-  'key-spacing': 'off',
-  // 允许行尾空格
-  'no-trailing-spaces': 'off',
-  // 允许 arguments.caller 或 arguments.callee
-  'no-caller': 'off',
-  // 允许 new 创建对象实例后不赋值给变量
-  'no-new': 'off',
-  // 允许不必要的转义
-  'no-useless-escape': 'off'
-}
-```
+默认自定义规则
+[.eslintrc.js](./.eslintrc.js)
 
 ## 配置文件
 
@@ -113,20 +81,50 @@ rules: {
 ```js
 {
   "lintTargetFiles": [], // 检测目标文件（定向检测 必选）
-  "globals":{} // eslint 全局对象（可选）
+  "lintType":{}, // 检测类型（可选）。默认检测 js scss
+  "globals":{}, // eslint 全局对象，规则同 eslint globals 属性（可选）。默认已经配置了 $ 和 jQuery 变量。
+}
+```
+
+配置示例
+
+```js
+{
+  "lintTargetFiles": [
+    "**/*.js",
+    "**/*.vue",
+    "**/*.scss",
+    "!**/ignore/*.js"
+  ],
+  "lintType":{
+    "js":true,
+    "scss":false
+  },
+  "globals":{
+    "qq":false
+  }
 }
 ```
 
 ## 忽略文件
 
-默认忽略检测的文件
+js 检测默认忽略文件
 
 ```
- **/node_modules/**/*.js
- **/node_modules/**/*.vue
- **/dist/**/*.js
- **/vendor/**/*.js
- **/*.min.js
+**/node_modules/**/*.js
+**/node_modules/**/*.vue
+**/dist/**/*.js
+**/vendor/**/*.js
+**/*.min.js
+```
+
+scss 检测默认忽略文件
+
+```
+**/node_modules/**/*.scss
+**/node_modules/**/*.vue
+**/vendor/**/*.scss
+**/*.min.scss
 ```
 
 ## 命令

@@ -18,10 +18,7 @@ if (param.version) {
 
 if (param.localdiff) { 
   util.setLocalDiffFileList();
-  process.env.lintConfigFile = 'lint.local.diff.json';
   process.env.isDiffLint = 'true';
-} else { 
-  process.env.lintConfigFile = 'lint.config.json';
 }
 
 const cmd = 'gulp --gulpfile ' + path.join(__dirname, '..', 'lint.js');

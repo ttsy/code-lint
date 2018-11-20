@@ -6,6 +6,7 @@ const fs = require('fs');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const sassLint = require('gulp-sass-lint');
+var extend = require('extend');
 
 // eslint 默认忽略检测的文件
 const eslintIgnoreFiles = require('./eslintignore');
@@ -26,14 +27,12 @@ const eslintBaseFile = [`${lintCMDPath}/lint-base.js`];
 // sasslint 占位文件，防止没人任何待检测文件时程序报错
 const sasslintBaseFile = [`${lintCMDPath}/lint-base.scss`]; 
 
-let lintConfigFilePath = lintCMDPath;
-if (process.env.isDiffLint) {
-  // 如果是 diff 检测，lint 临时配置文件存于 ttsy-lint 根路径下，而非使用 ttsy-lint 的项目目录下
-  lintConfigFilePath = __dirname;
-}
-
 // eslint 配置文件 lint.config.json
-const lintConfigJson = require(path.join(lintConfigFilePath, process.env.lintConfigFile));
+let lintConfigJson = require(path.join(lintCMDPath, 'lint.config.json'));
+if (process.env.isDiffLint) {
+  let lintLocalDiffJson = require(path.join(__dirname, 'lint.local.diff.json'));
+  extend(lintConfigJson, lintLocalDiffJson);
+}
 
 let lintFiles = {
   js: [],
@@ -60,7 +59,28 @@ if (lintConfigJson.lintTargetFiles){
   throw new Error('lint.config.json haven\'t configured lintTargetFiles field');
 }
 
-console.log(`------ lint files ------\n${lintFiles.js.concat(lintFiles.vue).concat(lintFiles.scss).join('\n')}\n------ lint files ------`);
+let typeObj = {
+  'js': 'eslint',
+  'sass': 'sasslint',
+  'scss': 'sasslint'
+}
+let defaultLintType = {
+  'js':true, 
+  'sass':true
+};
+let lintType = lintConfigJson.lintType || defaultLintType;
+let lintTask = [];
+for (let key in lintType){
+  if (lintType[key]){
+    lintTask.push(typeObj[key]);
+  }
+}
+
+if (lintType['js']){
+  console.log(`------ lint files ------\n${lintFiles.js.concat(lintFiles.vue).join('\n')}\n------ lint files ------`);
+} else if (lintType['sass'] || lintType['scss']){
+  console.log(`------ lint files ------\n${lintFiles.scss.join('\n')}\n------ lint files ------`);
+}
 
 // js 代码规范检测
 gulp.task('eslint', function () {
@@ -92,9 +112,9 @@ gulp.task('sasslint', function () {
 });
 
 // default task
-gulp.task('default', ['eslint', 'sasslint'], function () {
+gulp.task('default', lintTask, function () {
   if (process.env.isDiffLint) { 
     // 如果是 diff 检测，检测完后删除配置文件
-    fs.unlinkSync(path.join('.', process.env.lintConfigFile));
+    fs.unlinkSync(path.join(__dirname, 'lint.local.diff.json'));
   }
 });
