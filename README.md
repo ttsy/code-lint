@@ -62,17 +62,26 @@ npm run lint-localdiff
 
 ## 规则
 
-检测规则继承 eslint-config-standard 中的规则，并根据自身项目需要添加自定义规则。
+### js 检测规则
 
-### eslint-config-standard
-[https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md](https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md)
-
-### 自定义 Eslint 规则
-
+eslint rules：
 [https://cn.eslint.org/docs/rules/](https://cn.eslint.org/docs/rules/)
 
-默认自定义规则
+检测规则继承 eslint-config-standard 中的规则，并根据自身项目需要添加自定义规则。
+
+eslint-config-standard：[https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md](https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md)
+
+自定义 eslint 规则：
 [.eslintrc.js](./.eslintrc.js)
+
+### scss 检测规则
+
+scss-lint rules：
+[https://github.com/sasstools/sass-lint/tree/master/docs/rules](https://github.com/sasstools/sass-lint/tree/master/docs/rules)
+
+自定义 scss-lint 规则：
+[.sasslintrc.js](./.sasslintrc.js)
+
 
 ## 配置文件
 
