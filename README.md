@@ -80,6 +80,13 @@ eslint-config-standard：[https://github.com/standard/standard/blob/master/docs/
 
 css 检测包含了 css、scss、less 的检测
 
+stylelint rules：
+[https://stylelint.io/user-guide/rules/](https://stylelint.io/user-guide/rules/)
+
+检测规则继承 stylelint-config-standard 中的规则，并根据自身项目需要添加自定义规则。
+
+stylelint-config-standard：[https://github.com/stylelint/stylelint-config-standard/blob/master/index.js](https://github.com/stylelint/stylelint-config-standard/blob/master/index.js)
+
 自定义 stylelint 规则：
 [.stylelintrc.js](./.stylelintrc.js)
 

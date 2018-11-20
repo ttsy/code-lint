@@ -12,8 +12,6 @@ var extend = require('extend');
 const eslintIgnoreFiles = require('./eslintignore');
 // stylelint 默认忽略检测的文件
 const stylelintIgnoreFiles = require('./stylelintignore');
-// eslint 配置
-const eslintConfig = '.eslintrc.js';
 
 // 运行检测命令的目录
 const lintCMDPath = process.env.INIT_CWD;
@@ -90,7 +88,7 @@ gulp.task('eslint', function () {
   // console.log(`------ eslint files ------\n${files.join('\n')}\n------ eslint files ------`);
   return gulp.src(files)
     .pipe(gulpEslint({
-      configFile: eslintConfig
+      configFile: '.eslintrc.js'
     }))
     .pipe(gulpEslint.format())
     .pipe(gulpEslint.failAfterError());
