@@ -1,11 +1,11 @@
-# ttsy-lint
+# code-lint
 
 > 代码规范检测
 
 ## 安装
 
 ``` bash
-npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
+npm install git+https://github.com/ttsy/code-lint.git --save-dev
 ```
 ## 使用
 
