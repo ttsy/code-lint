@@ -1,16 +1,12 @@
 
-const initCWD = process.env.INIT_CWD;
-const lintConfigJson = require(initCWD + '/lint.config.json');
+const finalLintConfigJson = require('./lint.config.js');
 
 const eslintConfig = {
   root: true,
   env: {
     browser: true,
   },
-  globals: Object.assign({
-    '$': false,
-    'jQuery': false,
-  }, lintConfigJson.globals),
+  globals: finalLintConfigJson.globals,
   extends: [
     // https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md
     'standard'
