@@ -90,7 +90,6 @@ stylelint-config-standard：[https://github.com/stylelint/stylelint-config-stand
 自定义 stylelint 规则：
 [.stylelintrc.js](./.stylelintrc.js)
 
-
 ## 配置文件
 
 配置文件需放在根目录下，命名为 lint.config.json。仅在 localdiff 检测下不需要配置文件。

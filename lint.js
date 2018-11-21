@@ -73,11 +73,14 @@ for (let key in lintType){
   }
 }
 
+console.log(`------ lint files ------`);
 if (lintType['js']){
-  console.log(`------ lint files ------\n${lintFiles.js.concat(lintFiles.vue).join('\n')}\n------ lint files ------`);
-} else if (lintType['css']){
-  console.log(`------ lint files ------\n${lintFiles.css.concat(lintFiles.vue).concat(lintFiles.scss).concat(lintFiles.less).join('\n')}\n------ lint files ------`);
+  console.log(lintFiles.js.concat(lintFiles.vue).join('\n'));
+} 
+if (lintType['css']){
+  console.log(lintFiles.css.concat(lintFiles.vue).concat(lintFiles.scss).concat(lintFiles.less).join('\n'));
 }
+console.log(`------ lint files ------`);
 
 // js 代码规范检测
 gulp.task('eslint', function () {
