@@ -9,7 +9,7 @@ const gulpStylelint = require('gulp-stylelint');
 
 const util = require('./util/util');
 const finalLintConfigJson = require('./config/lint.config');
-const lintFileConfig = require('./config/lint.file.config');
+const lintFileConfig = require('./config/lint.type.config');
 
 // eslint 默认忽略检测的文件
 const eslintIgnoreFiles = require('./lintIgnore/eslintignore');

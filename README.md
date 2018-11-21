@@ -93,15 +93,18 @@ stylelint-config-standard：[https://github.com/stylelint/stylelint-config-stand
 
 ## 配置文件
 
-配置文件需放在根目录下，命名为 lint.config.json。仅在 localdiff 检测下不需要配置文件。
+配置文件需放在根目录下，命名为 lint.config.json。仅在 localdiff 检测下允许不需要配置文件。
 
 ```js
 {
   "lintTargetFiles": [], // 检测目标文件（定向检测 必选）
-  "lintType":{}, // 检测类型（可选）。js 默认开启、scss 默认关闭，scss 只能检测 .scss 文件而不能检测 .vue 文件
-  "globals":{}, // eslint 全局对象，规则同 eslint globals 属性（可选）。默认已经配置了 $ 和 jQuery 变量。
+  "lintType":{}, // 检测类型（可选）
+  "globals":{}, // eslint 全局对象，规则同 eslint globals 属性（可选）
 }
 ```
+
+默认配置
+[default.lint.config.js](./config/default.lint.config.js)
 
 配置示例
 
@@ -129,29 +132,10 @@ stylelint-config-standard：[https://github.com/stylelint/stylelint-config-stand
 ## 忽略文件
 
 js 检测默认忽略文件
-
-```
-**/node_modules/**/*.js
-**/node_modules/**/*.vue
-**/dist/**/*.js
-**/vendor/**/*.js
-**/*.min.js
-```
+[eslintignore.js](./lintIgnore/eslintignore.js)
 
 css 检测默认忽略文件
-
-```
-**/node_modules/**/*.css
-**/node_modules/**/*.vue
-**/node_modules/**/*.scss
-**/node_modules/**/*.less
-**/vendor/**/*.css
-**/vendor/**/*.scss
-**/vendor/**/*.less
-**/*.min.css
-**/*.min.scss
-**/*.min.less
-```
+[stylelintignore.js](./lintIgnore/stylelintignore.js)
 
 ## 命令
 

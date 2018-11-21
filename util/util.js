@@ -2,7 +2,7 @@ const path = require('path');
 const shelljs = require('shelljs');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-const lintFileConfig = require('../config/lint.file.config');
+const lintFileConfig = require('../config/lint.type.config');
 
 module.exports = {
   /**
