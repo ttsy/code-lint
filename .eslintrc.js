@@ -1,5 +1,5 @@
 
-const finalLintConfigJson = require('./lint.config.js');
+const finalLintConfigJson = require('./config/lint.config');
 
 const eslintConfig = {
   root: true,

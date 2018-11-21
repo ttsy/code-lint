@@ -27,7 +27,7 @@ let finalLintConfigJson = {};
 extend(true, finalLintConfigJson, defaultConfigJson, lintConfigJson);
 
 if (process.env.isDiffLint) {
-  let lintLocalDiffJson = require(path.join(__dirname, 'lint.local.diff.json'));
+  let lintLocalDiffJson = require(path.join(__dirname, '..', 'lint.local.diff.json'));
   finalLintConfigJson.lintTargetFiles = lintLocalDiffJson.lintTargetFiles;
 }
 

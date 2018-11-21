@@ -26,8 +26,9 @@ npm install git+https://github.com/ttsy/ttsy-lint.git --save-dev
 ```js
 {
   "lintTargetFiles": [
-    "**/*.js",
+    "**/*.html",
     "**/*.vue",
+    "**/*.js",
     "**/*.css",
     "**/*.scss",
     "**/*.less",
@@ -107,8 +108,9 @@ stylelint-config-standard：[https://github.com/stylelint/stylelint-config-stand
 ```js
 {
   "lintTargetFiles": [
-    "**/*.js",
+    "**/*.html",
     "**/*.vue",
+    "**/*.js",
     "**/*.css",
     "**/*.scss",
     "**/*.less",
@@ -116,7 +118,7 @@ stylelint-config-standard：[https://github.com/stylelint/stylelint-config-stand
   ],
   "lintType":{
     "js":true,
-    "css":true
+    "css":false
   },
   "globals":{
     "qq":false

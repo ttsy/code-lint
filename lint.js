@@ -7,12 +7,14 @@ const gulp = require('gulp');
 const gulpEslint = require('gulp-eslint');
 const gulpStylelint = require('gulp-stylelint');
 
-const finalLintConfigJson = require('./lint.config.js');
+const util = require('./util');
+const finalLintConfigJson = require('./config/lint.config');
+const lintFileConfig = require('./config/lint.file.config');
 
 // eslint 默认忽略检测的文件
-const eslintIgnoreFiles = require('./eslintignore');
+const eslintIgnoreFiles = require('./lintIgnore/eslintignore');
 // stylelint 默认忽略检测的文件
-const stylelintIgnoreFiles = require('./stylelintignore');
+const stylelintIgnoreFiles = require('./lintIgnore/stylelintignore');
 
 // 运行检测命令的目录
 const lintCMDPath = process.env.INIT_CWD;
@@ -24,14 +26,10 @@ const eslintBaseFile = [`${lintCMDPath}/lint-base.js`];
 // stylelint 占位文件，防止没人任何待检测文件时程序报错
 const stylelintBaseFile = [`${lintCMDPath}/lint-base.css`]; 
 
-let lintFiles = {
-  html: [],
-  vue: [],
-  js: [],
-  css: [],
-  scss: [],
-  less: []
-};
+let lintFiles = {};
+lintFileConfig.all.map(function(val){
+  lintFiles[val] = [];
+})
 
 if (finalLintConfigJson.lintTargetFiles){
   finalLintConfigJson.lintTargetFiles.map(function (val) {
@@ -64,25 +62,13 @@ for (let key in lintType){
   }
 }
 
-let includeJsLintFiles = lintFiles.html
-      .concat(lintFiles.vue)
-      .concat(lintFiles.js);
-let includeCssLintFiles = lintFiles.html
-      .concat(lintFiles.vue)
-      .concat(lintFiles.css)
-      .concat(lintFiles.scss)
-      .concat(lintFiles.less);
-let allLintFiles = lintFiles.html
-      .concat(lintFiles.vue)
-      .concat(lintFiles.js)
-      .concat(lintFiles.css)
-      .concat(lintFiles.vue)
-      .concat(lintFiles.scss)
-      .concat(lintFiles.less);
+let includeJsLintFiles = util.getLintFilesArr(lintFiles, 'js')
+let includeCssLintFiles = util.getLintFilesArr(lintFiles, 'css')
+let lintFilesArr = util.getLintFilesArr(lintFiles, 'all')
 
 console.log(`------ lint files ------`);
 if (lintType['js'] && lintType['css']){
-  console.log(allLintFiles.join('\n'));
+  console.log(lintFilesArr.join('\n'));
 } else if (lintType['js']){
   console.log(includeJsLintFiles.join('\n'));
 } else if (lintType['css']){

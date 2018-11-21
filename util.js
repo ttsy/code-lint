@@ -2,9 +2,12 @@ const path = require('path');
 const shelljs = require('shelljs');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
+const lintFileConfig = require('./config/lint.file.config');
 
 module.exports = {
-  // 设置本地的变动文件列表
+  /**
+   * @desc 设置本地的变动文件列表
+   */
   setLocalDiffFileList: function () {
     let adapter = new FileSync(path.join(__dirname, 'lint.local.diff.json'));
     let db = low(adapter);
@@ -14,10 +17,23 @@ module.exports = {
     // console.log(`------ untracked files ------\n${untrackedFiles}\n------ untracked files ------`);
     let fileList = [];
     let lintFiles = diffFiles + '\n' + untrackedFiles;
-    lintFiles.split('\n').forEach(function (v) {
-      let file = path.join(process.cwd(), v);
+    lintFiles.split('\n').forEach(function (val) {
+      let file = path.join(process.cwd(), val);
       fileList.push(file);
     });
     db.set('lintTargetFiles', fileList).write();
+  },
+  /**
+   * @desc 获取检测文件
+   * @param lintFiles 检测文件（对象数组格式）
+   * @param lintType 类型，js、css、all
+   * @return {Array} 检测文件（数组格式）
+   */
+  getLintFilesArr: function (lintFiles, lintType){
+    let lintFilesArr = [];
+    lintFileConfig[lintType].map(function(val){
+      lintFilesArr = lintFilesArr.concat(lintFiles[val]);
+    })
+    return lintFilesArr;
   }
 };

@@ -1,7 +1,8 @@
 {
   "lintTargetFiles": [
-    "**/*.js",
+    "**/*.html",
     "**/*.vue",
+    "**/*.js",
     "**/*.css",
     "**/*.scss",
     "**/*.less"
