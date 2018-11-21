@@ -7,7 +7,7 @@ const gulp = require('gulp');
 const gulpEslint = require('gulp-eslint');
 const gulpStylelint = require('gulp-stylelint');
 
-const util = require('./util');
+const util = require('./util/util');
 const finalLintConfigJson = require('./config/lint.config');
 const lintFileConfig = require('./config/lint.file.config');
 

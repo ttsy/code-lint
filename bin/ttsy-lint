@@ -4,7 +4,7 @@ const path = require('path');
 const argv = require('yargs').argv;
 const exec = require('child_process').exec;
 const packageJson = require(path.join(__dirname, '../package.json'));
-const util = require('../util');
+const util = require('../util/util');
 
 const param = {
   version:(argv.v || argv.version), // 查看版本号

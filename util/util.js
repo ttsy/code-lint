@@ -2,14 +2,14 @@ const path = require('path');
 const shelljs = require('shelljs');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-const lintFileConfig = require('./config/lint.file.config');
+const lintFileConfig = require('../config/lint.file.config');
 
 module.exports = {
   /**
    * @desc 设置本地的变动文件列表
    */
   setLocalDiffFileList: function () {
-    let adapter = new FileSync(path.join(__dirname, 'lint.local.diff.json'));
+    let adapter = new FileSync(path.join(__dirname, '..', 'lint.local.diff.json'));
     let db = low(adapter);
     let diffFiles = shelljs.exec(`git diff --name-only`, { silent: true }).stdout.trim();
     let untrackedFiles = shelljs.exec(`git ls-files --exclude-standard --others`, { silent: true }).stdout.trim();
