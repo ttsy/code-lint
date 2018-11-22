@@ -12,9 +12,7 @@ let defaultLintConfigJson = require('./default.lint.config');
 // eslint 配置文件 lint.config.json
 let lintConfigJson = require(path.join(lintCMDPath, 'lint.config.json'));
 // 最终配置
-let finalLintConfigJson = {};
-
-extend(true, finalLintConfigJson, defaultLintConfigJson, lintConfigJson);
+let finalLintConfigJson = extend(true, {}, defaultLintConfigJson, lintConfigJson);
 
 if (process.env.isDiffLint) {
   let lintLocalDiffJson = require(path.join(__dirname, '..', 'lint.local.diff.json'));

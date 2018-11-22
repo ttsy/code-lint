@@ -1,4 +1,5 @@
 
+const extend = require('extend');
 const finalLintConfigJson = require('./config/lint.config');
 
 const eslintConfig = {
@@ -14,7 +15,10 @@ const eslintConfig = {
   plugins: [
     'html'
   ],
-  rules: finalLintConfigJson.eslint.rules
+  rules: extend({
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true
+  }, finalLintConfigJson.eslint.rules)
 }
 
 module.exports = eslintConfig;
