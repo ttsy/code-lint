@@ -35,5 +35,21 @@ module.exports = {
       lintFilesArr = lintFilesArr.concat(lintFiles[val]);
     })
     return lintFilesArr;
+  },
+  /**
+  * @desc 数组去重
+  * @desc Array.prototype.indexOf
+  * @param arr 原始数组
+  * @return {Array} 去重后的新数组
+  */
+  uniqueArr(arr) {
+    var newArr = [];
+    for (var i = 0, len = arr.length; i < len; i++) {
+      var cur = arr[i];
+      if (newArr.indexOf(cur) === -1) {
+        newArr.push(cur)
+      }
+    }
+    return newArr;
   }
 };

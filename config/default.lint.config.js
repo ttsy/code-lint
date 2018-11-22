@@ -60,7 +60,7 @@ module.exports = {
       // 不限制缩进
       "indentation": null,
       // 规则块间不允许空行
-      "rule-empty-line-before": ["never"],
+      "rule-empty-line-before": ["never"]
     }
   }
 }

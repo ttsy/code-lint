@@ -4,6 +4,7 @@
 const path = require('path');
 const fs = require('fs');
 const gulp = require('gulp');
+const shelljs = require('shelljs');
 const gulpEslint = require('gulp-eslint');
 const gulpStylelint = require('gulp-stylelint');
 
@@ -51,8 +52,8 @@ if (finalLintConfigJson.lintTargetFiles){
 }
 
 let typeObj = {
-  'js': 'eslint',
-  'css':'stylelint'
+  js: process.env.fix ? 'eslintFix' : 'eslint',
+  css: process.env.fix ? 'stylelintFix' : 'stylelint'
 }
 let lintType = finalLintConfigJson.lintType;
 let lintTask = [];
@@ -102,6 +103,45 @@ gulp.task('stylelint', function() {
         { formatter: 'string', console: true }
       ]
     }));
+});
+
+// js 代码规范修复
+gulp.task('eslintFix', function () {
+  let fixCmd;
+  if (process.env.isDiffLint){
+    fixCmd = `eslint --fix ${includeJsLintFiles.join(' ')}`;
+  }else{
+    let lintTypeConfigJs = lintTypeConfig.js.map(function (val) {
+      return '.' + val;
+    })
+    let includeJsLintFolder = includeJsLintFiles.map(function(val){
+      return val.slice(0, val.indexOf('*') - 1);
+    })
+    fixCmd = `eslint --ext ${lintTypeConfigJs.join(',')} --fix ${util.uniqueArr(includeJsLintFolder).join(' ')}`;
+  }
+  // console.log(fixCmd)
+  shelljs.exec(fixCmd);
+});
+
+// css 代码规范修复
+gulp.task('stylelintFix', function () {
+  let fixCmd;
+  if (process.env.isDiffLint) {
+    fixCmd = `stylelint  ${includeCssLintFiles.join(' ')} --fix`;
+  } else {
+    let includeCssLintFilesArr = [];
+    let includeCssLintFolder = includeJsLintFiles.map(function (val) {
+      return val.slice(0, val.indexOf('*') - 1);
+    })
+    util.uniqueArr(includeCssLintFolder).map(function (val1) {
+      lintTypeConfig.css.map(function(val2){
+        includeCssLintFilesArr.push(val1 + '/*.' + val2);
+      })
+    })
+    fixCmd = `stylelint ${includeCssLintFilesArr.join(' ')} --fix`;
+  }
+  // console.log(fixCmd)
+  shelljs.exec(fixCmd);
 });
 
 // default task

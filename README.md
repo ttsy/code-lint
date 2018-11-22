@@ -113,6 +113,10 @@ css 检测默认忽略文件
 code-lint
 # localdiff 检测
 code-lint --localdiff
+# 定向修复
+code-lint --fix
+# localdiff 修复
+code-lint --localdiff --fix
 # 查看版本号
 code-lint -v
 code-lint --version
