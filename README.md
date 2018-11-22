@@ -17,7 +17,7 @@ npm install git+https://github.com/ttsy/code-lint.git --save-dev
 
 ```
 "scripts": {
-  "lint": "ttsy-lint"
+  "lint": "code-lint"
 },
 ```
 
@@ -53,7 +53,7 @@ npm run lint
 
 ```
 "scripts": {
-  "lint-localdiff": "ttsy-lint --localdiff"
+  "lint-localdiff": "code-lint --localdiff"
 },
 ```
 
@@ -95,39 +95,8 @@ stylelint-config-standard：[https://github.com/stylelint/stylelint-config-stand
 
 配置文件需放在根目录下，命名为 lint.config.json。仅在 localdiff 检测下允许不需要配置文件。
 
-```js
-{
-  "lintTargetFiles": [], // 检测目标文件（定向检测 必选）
-  "lintType":{}, // 检测类型（可选）
-  "globals":{}, // eslint 全局对象，规则同 eslint globals 属性（可选）
-}
-```
-
-默认配置
+默认配置及配置字段说明
 [default.lint.config.js](./config/default.lint.config.js)
-
-配置示例
-
-```js
-{
-  "lintTargetFiles": [
-    "**/*.html",
-    "**/*.vue",
-    "**/*.js",
-    "**/*.css",
-    "**/*.scss",
-    "**/*.less",
-    "!**/ignore/*.js"
-  ],
-  "lintType":{
-    "js":true,
-    "css":false
-  },
-  "globals":{
-    "qq":false
-  }
-}
-```
 
 ## 忽略文件
 
@@ -141,10 +110,10 @@ css 检测默认忽略文件
 
 ``` bash
 # 定向检测
-ttsy-lint
+code-lint
 # localdiff 检测
-ttsy-lint --localdiff
+code-lint --localdiff
 # 查看版本号
-ttsy-lint -v
-ttsy-lint --version
+code-lint -v
+code-lint --version
 ```

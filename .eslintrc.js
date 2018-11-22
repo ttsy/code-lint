@@ -1,4 +1,4 @@
-
+const extend = require('extend');
 const finalLintConfigJson = require('./config/lint.config');
 
 const eslintConfig = {
@@ -6,7 +6,7 @@ const eslintConfig = {
   env: {
     browser: true,
   },
-  globals: finalLintConfigJson.globals,
+  globals: finalLintConfigJson.eslint.globals,
   extends: [
     // https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md
     'standard'
@@ -14,7 +14,7 @@ const eslintConfig = {
   plugins: [
     'html'
   ],
-  rules: {
+  rules: extend({
     // 不强制使用一致的缩进
     'indent': 'off',
     // 不强制使用一致的反勾号、双引号或单引号
@@ -39,7 +39,7 @@ const eslintConfig = {
     'no-new': 'off',
     // 允许不必要的转义
     'no-useless-escape': 'off'
-  }
+  }, finalLintConfigJson.eslint.rules)
 }
 
 module.exports = eslintConfig;

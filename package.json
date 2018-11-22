@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "ttsy-lint": "./bin/ttsy-lint"
+    "code-lint": "./bin/code-lint"
   },
   "scripts": {
-    "lint": "ttsy-lint",
-    "lint-localdiff": "ttsy-lint --localdiff",
+    "lint": "code-lint",
+    "lint-localdiff": "code-lint --localdiff",
     "lint-fix": "eslint --fix --ext .js ./"
   },
   "repository": {
