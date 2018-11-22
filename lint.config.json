@@ -5,7 +5,8 @@
     "**/*.js",
     "**/*.css",
     "**/*.scss",
-    "**/*.less"
+    "**/*.less",
+    "!**/ignore/*.js"
   ],
   "lintType":{
     "js":true,

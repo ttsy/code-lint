@@ -115,7 +115,9 @@ gulp.task('eslintFix', function () {
       return '.' + val;
     })
     let includeJsLintFolder = includeJsLintFiles.map(function(val){
-      return val.slice(0, val.indexOf('*') - 1);
+      if(val.indexOf('!') == -1){
+        return val.slice(0, val.indexOf('*') - 1);
+      }
     })
     fixCmd = `eslint --ext ${lintTypeConfigJs.join(',')} --fix ${util.uniqueArr(includeJsLintFolder).join(' ')}`;
   }
@@ -130,8 +132,10 @@ gulp.task('stylelintFix', function () {
     fixCmd = `stylelint  ${includeCssLintFiles.join(' ')} --fix`;
   } else {
     let includeCssLintFilesArr = [];
-    let includeCssLintFolder = includeJsLintFiles.map(function (val) {
-      return val.slice(0, val.indexOf('*') - 1);
+    let includeCssLintFolder = includeCssLintFiles.map(function (val) {
+      if (val.indexOf('!') == -1) {
+        return val.slice(0, val.indexOf('*') - 1);
+      }
     })
     util.uniqueArr(includeCssLintFolder).map(function (val1) {
       lintTypeConfig.css.map(function(val2){
