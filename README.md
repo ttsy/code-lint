@@ -9,7 +9,7 @@ npm install git+https://github.com/ttsy/code-lint.git --save-dev
 ```
 ## 使用
 
-### 定向检测
+### 定向检测/修复
 
 检测配置文件中配置的文件
 
@@ -17,7 +17,8 @@ npm install git+https://github.com/ttsy/code-lint.git --save-dev
 
 ```
 "scripts": {
-  "lint": "code-lint"
+  "lint": "code-lint",
+  "lint-fix": "code-lint --fix",
 },
 ```
 
@@ -45,7 +46,7 @@ lintTargetFiles 为检测目标文件，在前面加上 ! 则表示忽略检测
 npm run lint
 ```
 
-### localdiff 检测
+### localdiff 检测/修复
 
 只检测本地 diff 的文件（包含 untracked 文件）。diff 检测允许没有配置文件 lint.config.json。
 
@@ -53,7 +54,8 @@ npm run lint
 
 ```
 "scripts": {
-  "lint-localdiff": "code-lint --localdiff"
+  "lint-localdiff": "code-lint --localdiff",
+  "lint-localdiff-fix":"code-lint --localdiff --fix"
 },
 ```
 
