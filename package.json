@@ -32,7 +32,6 @@
     "extend": "^3.0.2",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
-    "gulp-if": "^2.0.2",
     "gulp-stylelint": "^8.0.0",
     "lowdb": "^1.0.0",
     "shelljs": "^0.8.1",
