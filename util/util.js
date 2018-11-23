@@ -8,7 +8,7 @@ module.exports = {
   /**
    * @desc 设置本地的变动文件列表
    */
-  setLocalDiffFileList: function () {
+  setLocalDiffFileList(){
     let adapter = new FileSync(path.join(__dirname, '..', 'lint.local.diff.json'));
     let db = low(adapter);
     let diffFiles = shelljs.exec(`git diff --name-only`, { silent: true }).stdout.trim();
@@ -29,7 +29,7 @@ module.exports = {
    * @param lintType 类型，js、css、all
    * @return {Array} 检测文件（数组格式）
    */
-  getLintFilesArr: function (lintFiles, lintType){
+  getLintFilesArr(lintFiles, lintType){
     let lintFilesArr = [];
     lintFileConfig[lintType].map(function(val){
       lintFilesArr = lintFilesArr.concat(lintFiles[val]);
@@ -37,16 +37,16 @@ module.exports = {
     return lintFilesArr;
   },
   /**
-  * @desc 数组去重
-  * @desc Array.prototype.indexOf
-  * @param arr 原始数组
-  * @return {Array} 去重后的新数组
-  */
-  uniqueArr(arr) {
+   * @desc 数组去重
+   * @desc Array.prototype.includes
+   * @param arr 原始数组
+   * @return {Array} 去重后的新数组
+   */
+  uniqueArr1(arr) {
     var newArr = [];
     for (var i = 0, len = arr.length; i < len; i++) {
       var cur = arr[i];
-      if (newArr.indexOf(cur) === -1) {
+      if (!newArr.includes(cur)) {
         newArr.push(cur)
       }
     }
