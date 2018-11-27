@@ -29,22 +29,20 @@ lintTypeConfig.all.map((val) => {
   lintFiles[val] = [];
 })
 
-if (finalLintConfigJson.lintTargetFiles){
-  finalLintConfigJson.lintTargetFiles.map((val) => {
-    let fileType = val.substr(val.lastIndexOf('.') + 1);
-    let filePath;
-    if (process.env.isDiffLint) {
-      // 如果是 diff 检测，被检测文件已经配置为绝对路径，无需再拼接
-      filePath = val;
-    } else {
-      filePath = path.join(lintCMDPath, val);
-      filePath.includes('!') && (filePath = '!' + filePath.replace('!', ''));
-    }
-    lintFiles[fileType] && lintFiles[fileType].push(filePath);
-  });
-}else{
-  throw new Error('lint.config.json haven\'t configured lintTargetFiles field');
-}
+if (!finalLintConfigJson.lintTargetFiles) throw new Error('lint.config.json haven\'t configured lintTargetFiles field');
+
+finalLintConfigJson.lintTargetFiles.map((val) => {
+  let fileType = val.substr(val.lastIndexOf('.') + 1);
+  let filePath;
+  if (process.env.isDiffLint) {
+    // 如果是 diff 检测，被检测文件已经配置为绝对路径，无需再拼接
+    filePath = val;
+  } else {
+    filePath = path.join(lintCMDPath, val);
+    filePath.includes('!') && (filePath = '!' + filePath.replace('!', ''));
+  }
+  lintFiles[fileType] && lintFiles[fileType].push(filePath);
+});
 
 let typeObj = {
   js: process.env.fix ? 'eslintFix' : 'eslint',
