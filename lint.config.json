@@ -11,5 +11,11 @@
   "lintType":{
     "js":true,
     "css":true
+  },
+  "eslint": { 
+    "globals": {
+      "describe": false,
+      "it": false
+    }
   }
 }

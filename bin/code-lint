@@ -4,7 +4,7 @@ const path = require('path');
 const argv = require('yargs').argv;
 const exec = require('child_process').exec;
 const packageJson = require(path.join(__dirname, '../package.json'));
-const util = require('../util/util');
+const pub = require('../util/pubMethod');
 
 const param = {
   version:(argv.v || argv.version), // 查看版本号
@@ -18,7 +18,7 @@ if (param.version) {
 }
 
 if (param.localdiff) { 
-  util.setLocalDiffFileList();
+  pub.setLocalDiffFileList();
   process.env.isDiffLint = true;
 }
 if (param.fix){

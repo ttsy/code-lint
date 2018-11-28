@@ -9,6 +9,7 @@ const gulpEslint = require('gulp-eslint');
 const gulpStylelint = require('gulp-stylelint');
 
 const util = require('./util/util');
+const pub = require('./util/pubMethod');
 const finalLintConfigJson = require('./config/lint.config');
 const lintTypeConfig = require('./config/lint.type.config');
 const eslintIgnoreFiles = require('./lintIgnore/eslintignore');
@@ -54,9 +55,9 @@ for (let key in lintType){
   lintType[key] && lintTask.push(typeObj[key]);
 }
 
-let includeJsLintFiles = util.getLintFilesArr(lintFiles, 'js')
-let includeCssLintFiles = util.getLintFilesArr(lintFiles, 'css')
-let lintFilesArr = util.getLintFilesArr(lintFiles, 'all')
+let includeJsLintFiles = pub.getLintFilesArr(lintFiles, 'js')
+let includeCssLintFiles = pub.getLintFilesArr(lintFiles, 'css')
+let lintFilesArr = pub.getLintFilesArr(lintFiles, 'all')
 
 console.log(`------ lint files ------`);
 if (lintType['js'] && lintType['css']){
