@@ -4,6 +4,7 @@ const finalLintConfigJson = require('./config/lint.config');
 
 const eslintConfig = {
   root: true,
+  parser: "babel-eslint",
   env: {
     browser: true,
   },

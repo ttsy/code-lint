@@ -11,7 +11,7 @@
     "lint-localdiff": "code-lint --localdiff",
     "lint-fix": "code-lint --fix",
     "lint-localdiff-fix": "code-lint --localdiff --fix",
-    "test":"mocha test/specs/*.js"
+    "test": "mocha test/specs/*.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "author": "ttsy",
   "license": "ISC",
   "dependencies": {
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.9.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-html": "^4.0.6",
