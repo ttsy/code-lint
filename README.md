@@ -1,13 +1,20 @@
-# code-lint
+# [code-lint](https://github.com/ttsy/code-lint)
 
-> 代码规范检测
+基于 eslint、stylelint 的代码规范检测
 
-## 安装
+## :star: 特性
+
+- 基于 eslint 进行 js 代码规范检测
+- 基于 stylelint 进行 css 代码规范检测
+- 集成单元测试环境（mocha）
+
+## :rocket: 使用者指南
+
+通过 npm 下载安装
 
 ``` bash
 npm install git+https://github.com/ttsy/code-lint.git --save-dev
 ```
-## 使用
 
 ### 定向检测/修复
 
@@ -65,61 +72,12 @@ npm run lint
 npm run lint-localdiff
 ```
 
-## 规则
+## :bookmark_tabs: 文档
 
-### js 检测规则
+[API](./doc/API.md)
 
-eslint rules：
-[https://cn.eslint.org/docs/rules/](https://cn.eslint.org/docs/rules/)
+## :gear: 更新日志
+[CHANGELOG.md](./doc/CHANGELOG.md)
 
-检测规则继承 eslint-config-standard 中的规则，并根据自身项目需要添加自定义规则。
-
-eslint-config-standard：[https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md](https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md)
-
-自定义 eslint 规则：
-[.eslintrc.js](./.eslintrc.js)
-
-### css 检测规则
-
-css 检测包含了 css、scss、less 的检测
-
-stylelint rules：
-[https://stylelint.io/user-guide/rules/](https://stylelint.io/user-guide/rules/)
-
-检测规则继承 stylelint-config-standard 中的规则，并根据自身项目需要添加自定义规则。
-
-stylelint-config-standard：[https://github.com/stylelint/stylelint-config-standard/blob/master/index.js](https://github.com/stylelint/stylelint-config-standard/blob/master/index.js)
-
-自定义 stylelint 规则：
-[.stylelintrc.js](./.stylelintrc.js)
-
-## 配置文件
-
-配置文件需放在根目录下，命名为 lint.config.json。仅在 localdiff 检测下允许不需要配置文件。
-
-默认配置及配置字段说明
-[default.lint.config.js](./config/default.lint.config.js)
-
-## 忽略文件
-
-js 检测默认忽略文件
-[eslintignore.js](./lintIgnore/eslintignore.js)
-
-css 检测默认忽略文件
-[stylelintignore.js](./lintIgnore/stylelintignore.js)
-
-## 命令
-
-``` bash
-# 定向检测
-code-lint
-# localdiff 检测
-code-lint --localdiff
-# 定向修复
-code-lint --fix
-# localdiff 修复
-code-lint --localdiff --fix
-# 查看版本号
-code-lint -v
-code-lint --version
-```
+## :airplane: 计划列表
+[TODO.md](./doc/TODO.md)
