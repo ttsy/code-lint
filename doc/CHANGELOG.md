@@ -2,5 +2,8 @@
 
 ## 0.1.0 / 2018-12-15
 
-- 占位
+- 新增基于 eslint 的 js 代码规范检测
+- 新增基于 stylelint 的 css（含 css、scss、less） 代码规范检测
+- 新增基于 stylelint-scss 对 scss 代码更加友好的规范检测
+- 新增集成单元测试环境（mocha）
 

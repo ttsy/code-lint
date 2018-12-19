@@ -14,7 +14,7 @@
 通过 npm 下载安装
 
 ``` bash
-npm install git+https://github.com/ttsy/code-lint.git --save-dev
+npm install code-lint --save-dev
 ```
 
 ### 定向检测/修复
