@@ -7,7 +7,6 @@
 - 基于 eslint 进行 js 代码规范检测
 - 基于 stylelint 进行 css（含 css、scss、less） 代码规范检测
 - 基于 stylelint-scss 对 scss 代码更加友好的规范检测
-- 集成单元测试环境（mocha）
 
 ## :rocket: 使用者指南
 
