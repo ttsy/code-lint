@@ -3,7 +3,7 @@
 const path = require('path');
 const argv = require('yargs').argv;
 const exec = require('child_process').exec;
-const packageJson = require(path.join(__dirname, '../package.json'));
+const packageJson = require('../package.json');
 const pub = require('../util/pubMethod');
 
 const param = {
@@ -21,6 +21,7 @@ if (param.localdiff) {
   pub.setLocalDiffFileList();
   process.env.isDiffLint = true;
 }
+
 if (param.fix){
   process.env.fix = true;
 }

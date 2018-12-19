@@ -11,7 +11,7 @@ const gulpStylelint = require('gulp-stylelint');
 const util = require('./util/util');
 const pub = require('./util/pubMethod');
 const finalLintConfigJson = require('./config/lint.config');
-const lintTypeConfig = require('./config/lint.type.config');
+const typeConfig = require('./config/type.config');
 const eslintIgnoreFiles = require('./lintIgnore/eslintignore');
 const stylelintIgnoreFiles = require('./lintIgnore/stylelintignore');
 
@@ -26,7 +26,7 @@ const eslintBaseFile = [`${lintCMDPath}/lint-base.js`];
 const stylelintBaseFile = [`${lintCMDPath}/lint-base.css`]; 
 
 let lintFiles = {};
-lintTypeConfig.all.map((val) => {
+typeConfig.all.map((val) => {
   lintFiles[val] = [];
 })
 
@@ -101,7 +101,7 @@ gulp.task('eslintFix', () => {
   if (process.env.isDiffLint){
     fixCmd = `eslint --fix ${includeJsLintFiles.join(' ')}`;
   }else{
-    let lintTypeConfigJs = lintTypeConfig.js.map((val) => ('.' + val))
+    let lintTypeConfigJs = typeConfig.js.map((val) => ('.' + val))
     let includeJsLintFolder = includeJsLintFiles.map((val) => {
       if (val.indexOf('!') == -1) return val.slice(0, val.indexOf('*') - 1);
     })
@@ -122,7 +122,7 @@ gulp.task('stylelintFix', () => {
       if (val.indexOf('!') == -1) return val.slice(0, val.indexOf('*') - 1);
     })
     util.uniqueArr(includeCssLintFolder).map((val1) => {
-      lintTypeConfig.css.map((val2) => {
+      typeConfig.css.map((val2) => {
         includeCssLintFilesArr.push(val1 + '/*.' + val2);
       })
     })

@@ -1,4 +1,4 @@
-
+// 获得最终配置文件
 'use strict';
 
 /* eslint-disable no-console */
@@ -8,8 +8,8 @@ const extend = require('extend');
 // 运行检测命令的目录
 const lintCMDPath = process.env.INIT_CWD;
 // 默认配置
-let defaultLintConfigJson = require('./default.lint.config');
-// eslint 配置文件 lint.config.json
+let defaultLintConfigJson = require('./default.config');
+// 配置文件 lint.config.json
 let lintConfigJson = require(path.join(lintCMDPath, 'lint.config.json'));
 // 最终配置
 let finalLintConfigJson = extend(true, {}, defaultLintConfigJson, lintConfigJson);

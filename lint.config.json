@@ -5,8 +5,7 @@
     "**/*.js",
     "**/*.css",
     "**/*.scss",
-    "**/*.less",
-    "!**/ignore/*.js"
+    "**/*.less"
   ],
   "lintType":{
     "js":true,
@@ -16,6 +15,33 @@
     "globals": {
       "describe": false,
       "it": false
+    },
+    "rules": {
+      "indent": "off",
+      "quotes": "off",
+      "semi": "off",
+      "eqeqeq": "off",
+      "space-before-function-paren": "off",
+      "space-before-blocks": "off",
+      "keyword-spacing": "off",
+      "key-spacing": "off",
+      "no-trailing-spaces": "off",
+      "no-caller": "off",
+      "no-new": "off",
+      "no-useless-escape": "off"
+    }
+  },
+  "stylelint": { 
+    "rules": {
+      "at-rule-name-space-after": "always",
+      "block-opening-brace-space-before": null,
+      "color-hex-length": null,
+      "declaration-colon-space-after": null,
+      "function-comma-newline-after": null,
+      "indentation": null,
+      "rule-empty-line-before": [
+        "never"
+      ]
     }
   }
 }

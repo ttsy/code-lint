@@ -4,7 +4,7 @@ const path = require('path');
 const shelljs = require('shelljs');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-const lintFileConfig = require('../config/lint.type.config');
+const typeConfig = require('../config/type.config');
 
 module.exports = {
   /**
@@ -33,7 +33,7 @@ module.exports = {
    */
   getLintFilesArr(lintFiles, lintType) {
     let lintFilesArr = [];
-    lintFileConfig[lintType].map(function (val) {
+    typeConfig[lintType].map(function (val) {
       lintFilesArr = lintFilesArr.concat(lintFiles[val]);
     })
     return lintFilesArr;
