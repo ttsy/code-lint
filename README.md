@@ -26,7 +26,7 @@ npm install code-lint --save-dev
 "scripts": {
   "lint": "code-lint",
   "lint-fix": "code-lint --fix",
-},
+}
 ```
 
 - 在根目录中加入配置文件，文件名为 lint.config.json，文件格式示例内容如下
@@ -45,7 +45,7 @@ npm install code-lint --save-dev
 }
 ```
 
-lintTargetFiles 为检测目标文件，在前面加上 ! 则表示忽略检测的文件。
+lintTargetFiles 为检测目标文件，使用 glob 语法，在前面加上 ! 则表示忽略检测的文件。
 
 - 运行检测命令检测或修复
 
@@ -65,7 +65,7 @@ npm run lint-fix
 "scripts": {
   "lint-localdiff": "code-lint --localdiff",
   "lint-localdiff-fix":"code-lint --localdiff --fix"
-},
+}
 ```
 
 - 运行检测命令检测或修复

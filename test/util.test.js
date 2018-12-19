@@ -1,4 +1,4 @@
-let util = require('../../util/util.js');
+let util = require('../util/util.js');
 let expect = require('chai').expect;
 
 describe('uniqueArr 数组去重函数测试', () => {

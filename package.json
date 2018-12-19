@@ -11,7 +11,7 @@
     "lint-localdiff": "code-lint --localdiff",
     "lint-fix": "code-lint --fix",
     "lint-localdiff-fix": "code-lint --localdiff --fix",
-    "test": "mocha test/specs/*.js"
+    "test": "mocha test/*.js"
   },
   "repository": {
     "type": "git",
