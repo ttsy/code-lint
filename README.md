@@ -14,7 +14,7 @@
 
 ``` bash
 npm install code-lint --save-dev
-```
+```  
 
 ### 定向检测/修复
 
