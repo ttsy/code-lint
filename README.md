@@ -94,7 +94,9 @@ lint.config.json 配置文件中，除了 lintTargetFiles 参数外，还可以�
 ## :bookmark_tabs: 文档
 
 默认配置：[default.config.js](./config/default.config.js)
+
 js 检测默认忽略文件：[eslintignore.js](./lintIgnore/eslintignore.js)
+
 css 检测默认忽略文件：[stylelintignore.js](./lintIgnore/stylelintignore.js)
 
 ## :gear: 更新日志
