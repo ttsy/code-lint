@@ -7,6 +7,10 @@
 - 基于 eslint 进行 js 代码规范检测
 - 基于 stylelint 进行 css（含 css、scss、less） 代码规范检测
 - 基于 stylelint-scss 对 scss 代码更加友好的规范检测
+- 定向检测/修复文件
+- localdiff 检测/修复文件
+
+js 代码检测仅包含后缀为 .html、.vue、.js 的文件，而 css 代码检测仅包含后缀为 .html、.vue、.css、.scss、less。
 
 ## :rocket: 使用者指南
 
