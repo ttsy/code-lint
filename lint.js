@@ -30,8 +30,6 @@ typeConfig.all.map((val) => {
   lintFiles[val] = [];
 })
 
-if (!finalLintConfigJson.lintTargetFiles) throw new Error('lint.config.json haven\'t configured lintTargetFiles field');
-
 finalLintConfigJson.lintTargetFiles.map((val) => {
   let fileType = val.substr(val.lastIndexOf('.') + 1);
   let filePath;

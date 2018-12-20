@@ -5,14 +5,14 @@
 ## :star: 特性
 
 - 基于 eslint 进行 js 代码规范检测
-- 基于 stylelint 进行 css（含 css、scss、less） 代码规范检测
+- 基于 stylelint 进行 css 代码规范检测
 - 基于 stylelint-scss 对 scss 代码更加友好的规范检测
 - 定向检测/修复文件
-- localdiff 检测/修复文件
+- localdiff 检测/修复文件（基于 git）
 
 js 代码检测仅包含后缀为 .html、.vue、.js 的文件，而 css 代码检测仅包含后缀为 .html、.vue、.css、.scss、less。
 
-## :rocket: 使用者指南
+## :rocket: 使用指南
 
 通过 npm 下载安装
 
@@ -49,7 +49,7 @@ npm install code-lint --save-dev
 }
 ```
 
-lintTargetFiles 为检测目标文件，使用 glob 语法，在前面加上 ! 则表示忽略检测的文件。
+lintTargetFiles 为检测目标文件，使用 glob 语法，在前面加上 ! 则表示忽略检测的文件。
 
 - 运行检测命令检测或修复
 
@@ -82,17 +82,13 @@ npm run lint-localdiff-fix
 
 ### 检测规则
 
-js 检测规则继承 eslint-config-standard 中的规则，并可根据配置文件中 eslint.rules 参数添加自定义规则。
+js 检测规则继承 [eslint-config-standard](https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md) 中的规则，并可根据配置文件中 eslint.rules 参数添加检测规则。
 
-eslint-config-standard：[https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md](https://github.com/standard/standard/blob/master/docs/RULES-zhcn.md)
-
-css 检测规则继承 stylelint-config-standard 中的规则，可根据配置文件中 stylelint.rules 参数添加自定义规则。
-
-stylelint-config-standard：[https://github.com/stylelint/stylelint-config-standard/blob/master/index.js](https://github.com/stylelint/stylelint-config-standard/blob/master/index.js)
+css 检测规则继承 [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard/blob/master/index.js) 中的规则，可根据配置文件中 stylelint.rules 参数添加检测规则。
 
 ### 其它说明
 
-lint.config.json 配置文件中，除了 lintTargetFiles 参数外，还可以通过配置其它参数决定仅检测 js 或者 css等，详见下述默认配置文档（default.config.js）。
+lint.config.json 配置文件中，除了 lintTargetFiles 参数外，还可以通过配置其它参数决定仅检测 js 或者 css 以及添加自己的检测规则，详见下述默认配置文档（default.config.js）。
 
 ## :bookmark_tabs: 文档
 

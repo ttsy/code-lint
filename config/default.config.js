@@ -1,24 +1,24 @@
 // 默认配置
 module.exports = {
-  // "lintTargetFiles": [ // 检测目标文件（定向检测 必选）
-  //   "**/*.html",
-  //   "**/*.vue",
-  //   "**/*.js",
-  //   "**/*.css",
-  //   "**/*.scss",
-  //   "**/*.less",
-  //   "!**/ignore/*.js"
-  // ],
+  "lintTargetFiles": [ // 检测目标文件（可选）
+    // "**/*.html",
+    // "**/*.vue",
+    // "**/*.js",
+    // "**/*.css",
+    // "**/*.scss",
+    // "**/*.less",
+    // "!**/ignore/*.js"
+  ],
   "lintType": { // 检测类型（可选）
     "js": true,
     "css": true
   },
   "eslint": { // eslint 配置规则（可选）
-    "globals": {
+    "globals": { // 同 eslint globals 字段
       '$': false,
       'jQuery': false
     },
-    "rules": {
+    "rules": { // 同 eslint rules 字段
       // // 不强制使用一致的缩进
       // 'indent': 'off',
       // // 不强制使用一致的反勾号、双引号或单引号
@@ -46,7 +46,7 @@ module.exports = {
     }
   },
   "stylelint": { // stylelint 配置规则（可选）
-    "rules": {
+    "rules": { // 同 stylelint rules 字段
       // // at-rule 名后面必须有一个空格
       // "at-rule-name-space-after": "always",
       // // 开始大括号前不限制是否需要空格
