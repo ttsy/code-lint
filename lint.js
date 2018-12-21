@@ -8,69 +8,80 @@ const shelljs = require('shelljs');
 const gulpEslint = require('gulp-eslint');
 const gulpStylelint = require('gulp-stylelint');
 
-const util = require('./util/util');
+// const util = require('./util/util');
 const pub = require('./util/pubMethod');
-const finalLintConfigJson = require('./config/lint.config');
 const typeConfig = require('./config/type.config');
-const eslintIgnoreFiles = require('./lintIgnore/eslintignore');
-const stylelintIgnoreFiles = require('./lintIgnore/stylelintignore');
+const lintConfig = require('./config/lint.config');
+const eslintDefaultIgnoreFiles = require('./lintIgnore/eslint.default.ignore');
+const stylelintDefaultIgnoreFiles = require('./lintIgnore/stylelint.default.ignore');
 
 // 运行检测命令的目录
 const lintCMDPath = process.env.INIT_CWD;
 // 当前工作目录（--gulpfile lint.js 会将 cwd 设置为 lint.js 所在目录）
 // const cwd = process.cwd();
 
-// eslint 占位文件，防止没人任何待检测文件时程序报错
+// eslint 占位文件，防止没任何待检测文件时程序报错
 const eslintBaseFile = [`${lintCMDPath}/lint-base.js`]; 
-// stylelint 占位文件，防止没人任何待检测文件时程序报错
+// stylelint 占位文件，防止没任何待检测文件时程序报错
 const stylelintBaseFile = [`${lintCMDPath}/lint-base.css`]; 
 
 let lintFiles = {};
+let lintIgnoreFiles = {};
 typeConfig.all.map((val) => {
   lintFiles[val] = [];
+  lintIgnoreFiles[val] = [];
 })
 
-finalLintConfigJson.lintTargetFiles.map((val) => {
+lintConfig.lintTargetFiles.map((val) => {
+  if (val.includes('!')) { // 兼容 lintTargetFiles 配置 ！ 忽略检测文件的情况
+    lintConfig.ignoreFiles.push(val.slice(1))
+  }else{
+    let fileType = val.substr(val.lastIndexOf('.') + 1);
+    let filePath;
+    if (process.env.isDiffLint) { // 如果是 diff 检测，被检测文件已经配置为绝对路径，无需再拼接
+      filePath = val;
+    } else {
+      filePath = path.join(lintCMDPath, val);
+      filePath.includes('!') && (filePath = '!' + filePath.replace('!', ''));
+    }
+    lintFiles[fileType] && lintFiles[fileType].push(filePath);
+  }
+});
+
+lintConfig.ignoreFiles.map((val) => {
   let fileType = val.substr(val.lastIndexOf('.') + 1);
   let filePath;
-  if (process.env.isDiffLint) {
-    // 如果是 diff 检测，被检测文件已经配置为绝对路径，无需再拼接
-    filePath = val;
-  } else {
-    filePath = path.join(lintCMDPath, val);
-    filePath.includes('!') && (filePath = '!' + filePath.replace('!', ''));
-  }
-  lintFiles[fileType] && lintFiles[fileType].push(filePath);
-});
+  filePath = '!' + path.join(lintCMDPath, val);
+  lintIgnoreFiles[fileType] && lintIgnoreFiles[fileType].push(filePath);
+})
 
 let typeObj = {
   js: process.env.fix ? 'eslintFix' : 'eslint',
   css: process.env.fix ? 'stylelintFix' : 'stylelint'
 }
-let lintType = finalLintConfigJson.lintType;
+let lintType = lintConfig.lintType;
 let lintTask = [];
 for (let key in lintType){
   lintType[key] && lintTask.push(typeObj[key]);
 }
 
-let includeJsLintFiles = pub.getLintFilesArr(lintFiles, 'js')
-let includeCssLintFiles = pub.getLintFilesArr(lintFiles, 'css')
-let lintFilesArr = pub.getLintFilesArr(lintFiles, 'all')
+// 检测文件
+let myEsLintFiles = pub.getFilesArr(lintFiles, 'js')
+let myStyleLintFiles = pub.getFilesArr(lintFiles, 'css')
+// let myLintFiles = pub.getFilesArr(lintFiles, 'all')
+// 检测忽略文件
+let myEsLintIgnoreFiles = pub.getFilesArr(lintIgnoreFiles, 'js')
+let myStyleLintIgnoreFiles = pub.getFilesArr(lintIgnoreFiles, 'css')
+// let myLintIgnoreFiles = pub.getFilesArr(lintIgnoreFiles, 'all')
 
-console.log(`------ lint files ------`);
-if (lintType['js'] && lintType['css']){
-  console.log(lintFilesArr.join('\n'));
-} else if (lintType['js']){
-  console.log(includeJsLintFiles.join('\n'));
-} else if (lintType['css']){
-  console.log(includeCssLintFiles.join('\n'));
-}
-console.log(`------ lint files ------`);
+// pub.printLintFiles(lintType, myLintFiles, myEsLintFiles, myStyleLintFiles);
+// pub.printLintIgnoreFiles(lintType, myLintIgnoreFiles, myEsLintIgnoreFiles, myStyleLintIgnoreFiles);
 
 // js 代码规范检测
 gulp.task('eslint', () => {
-  let files = includeJsLintFiles
-    .concat(eslintIgnoreFiles)
+  let files = myEsLintFiles
+    .concat(myEsLintIgnoreFiles)
+    .concat(eslintDefaultIgnoreFiles)
     .concat(eslintBaseFile);
   return gulp.src(files)
     .pipe(gulpEslint({
@@ -82,8 +93,9 @@ gulp.task('eslint', () => {
 
 // css 代码规范检测
 gulp.task('stylelint', () => {
-  let files = includeCssLintFiles
-    .concat(stylelintIgnoreFiles)
+  let files = myStyleLintFiles
+    .concat(myStyleLintIgnoreFiles)
+    .concat(stylelintDefaultIgnoreFiles)
     .concat(stylelintBaseFile);
   return gulp.src(files)
     .pipe(gulpStylelint({
@@ -93,39 +105,16 @@ gulp.task('stylelint', () => {
     }));
 });
 
-// js 代码规范修复
+// 全局 js 代码规范修复
 gulp.task('eslintFix', () => {
-  let fixCmd;
-  if (process.env.isDiffLint){
-    fixCmd = `eslint --fix ${includeJsLintFiles.join(' ')}`;
-  }else{
-    let lintTypeConfigJs = typeConfig.js.map((val) => ('.' + val))
-    let includeJsLintFolder = includeJsLintFiles.map((val) => {
-      if (val.indexOf('!') == -1) return val.slice(0, val.indexOf('*') - 1);
-    })
-    fixCmd = `eslint --ext ${lintTypeConfigJs.join(',')} --fix ${util.uniqueArr(includeJsLintFolder).join(' ')}`;
-  }
+  let fixCmd = `eslint --fix ${lintCMDPath}`;
   // console.log(fixCmd)
   shelljs.exec(fixCmd);
 });
 
-// css 代码规范修复
+// 全局 css 代码规范修复
 gulp.task('stylelintFix', () => {
-  let fixCmd;
-  if (process.env.isDiffLint) {
-    fixCmd = `stylelint  ${includeCssLintFiles.join(' ')} --fix`;
-  } else {
-    let includeCssLintFilesArr = [];
-    let includeCssLintFolder = includeCssLintFiles.map((val) => {
-      if (val.indexOf('!') == -1) return val.slice(0, val.indexOf('*') - 1);
-    })
-    util.uniqueArr(includeCssLintFolder).map((val1) => {
-      typeConfig.css.map((val2) => {
-        includeCssLintFilesArr.push(val1 + '/*.' + val2);
-      })
-    })
-    fixCmd = `stylelint ${includeCssLintFilesArr.join(' ')} --fix`;
-  }
+  let fixCmd = `stylelint ${lintCMDPath} --fix`;
   // console.log(fixCmd)
   shelljs.exec(fixCmd);
 });

@@ -1,14 +1,15 @@
 # [code-lint](https://github.com/ttsy/code-lint)
 
-基于 eslint、stylelint 的代码规范检测
+一个基于 eslint、stylelint 的代码规范检测工具
 
 ## :star: 特性
 
 - 基于 eslint 进行 js 代码规范检测
 - 基于 stylelint 进行 css 代码规范检测
 - 基于 stylelint-scss 对 scss 代码更加友好的规范检测
-- 定向检测/修复文件
-- localdiff 检测/修复文件（基于 git）
+- 定向检测文件
+- localdiff 检测文件（基于 git）
+- 全局修复
 
 js 代码检测仅包含后缀为 .html、.vue、.js 的文件，而 css 代码检测仅包含后缀为 .html、.vue、.css、.scss、less。
 
@@ -20,7 +21,7 @@ js 代码检测仅包含后缀为 .html、.vue、.js 的文件，而 css 代码�
 npm install code-lint --save-dev
 ```  
 
-### 定向检测/修复
+### 定向检测
 
 检测配置文件中配置的文件
 
@@ -28,8 +29,7 @@ npm install code-lint --save-dev
 
 ```
 "scripts": {
-  "lint": "code-lint",
-  "lint-fix": "code-lint --fix",
+  "lint": "code-lint"
 }
 ```
 
@@ -43,23 +43,20 @@ npm install code-lint --save-dev
     "**/*.js",
     "**/*.css",
     "**/*.scss",
-    "**/*.less",
-    "!**/ignore/*.js"
+    "**/*.less"
   ]
 }
 ```
 
-lintTargetFiles 为检测目标文件，使用 glob 语法，在前面加上 ! 则表示忽略检测的文件。
+lintTargetFiles 为检测目标文件，使用 glob 语法。
 
-- 运行检测命令检测或修复
+- 运行检测命令检测
 
 ``` bash
 npm run lint
-或
-npm run lint-fix
 ```
 
-### localdiff 检测/修复
+### localdiff 检测
 
 只检测本地 diff 的文件（包含 untracked 文件）。diff 检测允许没有配置文件 lint.config.json。
 
@@ -67,17 +64,32 @@ npm run lint-fix
 
 ```
 "scripts": {
-  "lint-localdiff": "code-lint --localdiff",
-  "lint-localdiff-fix":"code-lint --localdiff --fix"
+  "lint-localdiff": "code-lint --localdviff"
 }
 ```
 
-- 运行检测命令检测或修复
+- 运行检测命令检测
 
 ``` bash
 npm run lint-localdiff
-或
-npm run lint-localdiff-fix
+```
+
+### 全局修复
+
+修复运行修复命令的目录下的文件
+
+- 在根目录 package.json 文件中加入修复命令 
+
+```
+"scripts": {
+  "lint-fix": "code-lint --fix"
+}
+```
+
+- 运行命令修复
+
+``` bash
+npm run lint-fix
 ```
 
 ### 检测规则

@@ -12,11 +12,11 @@ let defaultLintConfigJson = require('./default.config');
 // 配置文件 lint.config.json
 let lintConfigJson = require(path.join(lintCMDPath, 'lint.config.json'));
 // 最终配置
-let finalLintConfigJson = extend(true, {}, defaultLintConfigJson, lintConfigJson);
+let lintConfig = extend(true, {}, defaultLintConfigJson, lintConfigJson);
 
 if (process.env.isDiffLint) {
   let lintLocalDiffJson = require(path.join(__dirname, '..', 'lint.local.diff.json'));
-  finalLintConfigJson.lintTargetFiles = lintLocalDiffJson.lintTargetFiles;
+  lintConfig.lintTargetFiles = lintLocalDiffJson.lintTargetFiles;
 }
 
-module.exports = finalLintConfigJson;
+module.exports = lintConfig;

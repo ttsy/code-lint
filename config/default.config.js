@@ -9,6 +9,7 @@ module.exports = {
     // "**/*.less",
     // "!**/ignore/*.js"
   ],
+  "ignoreFiles":[], // 检测忽略文件（可选）
   "lintType": { // 检测类型（可选）
     "js": true,
     "css": true

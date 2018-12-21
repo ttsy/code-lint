@@ -7,9 +7,12 @@
     "**/*.scss",
     "**/*.less"
   ],
+  "ignoreFiles":[
+    
+  ],
   "lintType":{
     "js":true,
-    "css":true
+    "css":false
   },
   "eslint": { 
     "globals": {
