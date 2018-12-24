@@ -83,7 +83,7 @@ gulp.task('eslint', () => {
     .concat(myEsLintIgnoreFiles)
     .concat(eslintDefaultIgnoreFiles)
     .concat(eslintBaseFile);
-  return gulp.src(files)
+  return gulp.src(files, { allowEmpty: true })
     .pipe(gulpEslint({
       configFile: '.eslintrc.js'
     }))
@@ -97,7 +97,7 @@ gulp.task('stylelint', () => {
     .concat(myStyleLintIgnoreFiles)
     .concat(stylelintDefaultIgnoreFiles)
     .concat(stylelintBaseFile);
-  return gulp.src(files)
+  return gulp.src(files, { allowEmpty: true })
     .pipe(gulpStylelint({
       reporters: [
         { formatter: 'string', console: true }
@@ -120,7 +120,8 @@ gulp.task('stylelintFix', () => {
 });
 
 // default task
-gulp.task('default', lintTask, () => {
+gulp.task('default', gulp.series(lintTask, (done) => {
   // 如果是 diff 检测，检测完后删除配置文件
   process.env.isDiffLint && fs.unlinkSync(path.join(__dirname, 'lint.local.diff.json'));
-});
+  done()
+}));
