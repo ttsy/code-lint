@@ -4,7 +4,6 @@
 const path = require('path');
 const fs = require('fs');
 const gulp = require('gulp');
-const shelljs = require('shelljs');
 const gulpEslint = require('gulp-eslint');
 const gulpStylelint = require('gulp-stylelint');
 
@@ -56,8 +55,8 @@ lintConfig.ignoreFiles.map((val) => {
 })
 
 let typeObj = {
-  js: process.env.fix ? 'eslintFix' : 'eslint',
-  css: process.env.fix ? 'stylelintFix' : 'stylelint'
+  js: 'eslint',
+  css: 'stylelint'
 }
 let lintType = lintConfig.lintType;
 let lintTask = [];
@@ -103,20 +102,6 @@ gulp.task('stylelint', () => {
         { formatter: 'string', console: true }
       ]
     }));
-});
-
-// 全局 js 代码规范修复
-gulp.task('eslintFix', () => {
-  let fixCmd = `eslint --fix ${lintCMDPath}`;
-  // console.log(fixCmd)
-  shelljs.exec(fixCmd);
-});
-
-// 全局 css 代码规范修复
-gulp.task('stylelintFix', () => {
-  let fixCmd = `stylelint ${lintCMDPath} --fix`;
-  // console.log(fixCmd)
-  shelljs.exec(fixCmd);
 });
 
 // default task

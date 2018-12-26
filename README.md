@@ -9,7 +9,6 @@
 - 基于 stylelint-scss 对 scss 代码更加友好的规范检测
 - 定向检测文件
 - localdiff 检测文件（基于 git）
-- 全局修复
 
 js 代码检测仅包含后缀为 .html、.vue、.js 的文件，而 css 代码检测仅包含后缀为 .html、.vue、.css、.scss、less。
 
@@ -72,24 +71,6 @@ npm run lint
 
 ``` bash
 npm run lint-localdiff
-```
-
-### 全局修复
-
-修复运行修复命令的目录下的文件
-
-- 在根目录 package.json 文件中加入修复命令 
-
-```
-"scripts": {
-  "lint-fix": "code-lint --fix"
-}
-```
-
-- 运行命令修复
-
-``` bash
-npm run lint-fix
 ```
 
 ### 检测规则

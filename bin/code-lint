@@ -8,8 +8,7 @@ const pub = require('../util/pubMethod');
 
 const param = {
   version:(argv.v || argv.version), // 查看版本号
-  localdiff: argv.localdiff, // localdiff 检测（包含 untracked 文件）
-  fix: argv.fix // 代码规范修复
+  localdiff: argv.localdiff // localdiff 检测（包含 untracked 文件）
 }
 
 if (param.version) {
@@ -20,10 +19,6 @@ if (param.version) {
 if (param.localdiff) { 
   pub.setLocalDiffFileList();
   process.env.isDiffLint = true;
-}
-
-if (param.fix){
-  process.env.fix = true;
 }
 
 const cmd = 'gulp --gulpfile ' + path.join(__dirname, '..', 'lint.js');
